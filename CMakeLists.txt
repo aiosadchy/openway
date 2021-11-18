@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.8)
 
 project(
     openway
-    VERSION         0.0.1
+    VERSION         0.1.0
     DESCRIPTION     "A simple general purpose utility library for modern C++"
     HOMEPAGE_URL    "https://github.com/aiosadchy/openway"
 )
