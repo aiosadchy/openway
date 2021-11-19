@@ -16,16 +16,8 @@ endfunction()
 
 set(CMAKE_CXX_STANDARD 17)
 
-################################################################################
-#                                 dependencies                                 #
-################################################################################
+add_subdirectory(external)
 
-include(FetchContent)
-FetchContent_Declare(utl
-    GIT_REPOSITORY https://github.com/aiosadchy/utl.git
-    GIT_TAG fa9271e573c3415fe1705cbad7bb7458b6c96794
-)
-FetchContent_MakeAvailable(utl)
 
 ################################################################################
 #                                  executable                                  #
@@ -36,7 +28,11 @@ add_executable(openway
 )
 
 target_include_directories(openway PUBLIC include)
-target_link_libraries(openway PUBLIC utl)
+target_link_libraries(openway
+    PUBLIC utl
+    PUBLIC secs
+    PUBLIC glm
+)
 
 if(MSVC)
     target_compile_options(openway PRIVATE /W4 /WX)
