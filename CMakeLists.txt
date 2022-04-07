@@ -24,6 +24,7 @@ add_subdirectory(external)
 ################################################################################
 
 add_executable(openway
+    src/openway/voxel_octree.cpp
     src/main.cpp
 )
 
