@@ -26,6 +26,7 @@ add_subdirectory(external)
 add_executable(openway
     src/openway/gl/glad_session.cpp
     src/openway/gl/glfw_session.cpp
+    src/openway/gl/shader.cpp
 
     src/main.cpp
 )
