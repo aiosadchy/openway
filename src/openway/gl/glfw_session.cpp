@@ -5,6 +5,7 @@
 
 #include <GLFW/glfw3.h>
 
+
 GLFWSession::GLFWSession() {
     if (!glfwInit()) {
         throw std::runtime_error("error creating GLFW session");
