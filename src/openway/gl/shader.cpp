@@ -18,7 +18,8 @@ GLuint Shader::ShaderCompilationError::get_descriptor() const {
 
 
 Shader::Shader(GLenum type, std::string_view source)
-    : Descriptor(glCreateShader(type)) {
+    : Descriptor(glCreateShader(type))
+    , m_type(type) {
     const GLchar *source_ptr = source.begin();
     const GLint length = source.length();
 
@@ -36,6 +37,10 @@ Shader::~Shader() {
     if (is_initialized()) {
         glDeleteShader(*this);
     }
+}
+
+GLenum Shader::get_type() const {
+    return m_type;
 }
 
 Shader Shader::load_from_file(GLenum type, const std::string &filename) {

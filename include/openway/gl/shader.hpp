@@ -5,6 +5,8 @@
 #include <string_view>
 #include <stdexcept>
 
+#include <utl/default_movable.hpp>
+
 #include "openway/gl/descriptor.hpp"
 
 
@@ -23,7 +25,14 @@ public:
     Shader(GLenum type, std::string_view source);
     ~Shader();
 
+    DEFAULT_MOVABLE(Shader)
+
+    GLenum get_type() const;
+
     static Shader load_from_file(GLenum type, const std::string &filename);
+
+private:
+    GLenum m_type;
 
 };
 
