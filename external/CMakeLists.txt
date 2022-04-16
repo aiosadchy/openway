@@ -1,21 +1,30 @@
 include(FetchContent)
 
 
-FetchContent_Declare(utl
-    GIT_REPOSITORY https://github.com/aiosadchy/utl.git
-    GIT_TAG fa9271e573c3415fe1705cbad7bb7458b6c96794
+function(add_dependency name repository tag)
+    FetchContent_Declare(${name}
+        GIT_REPOSITORY ${repository}
+        GIT_TAG ${tag}
+    )
+    FetchContent_MakeAvailable(${name})
+endfunction()
+
+add_dependency(utl
+    https://github.com/aiosadchy/utl.git
+    master
 )
-FetchContent_MakeAvailable(utl)
 
-
-FetchContent_Declare(secs
-    GIT_REPOSITORY https://github.com/aiosadchy/secs.git
+add_dependency(glm
+    https://github.com/g-truc/glm.git
+    0.9.9.8
 )
-FetchContent_MakeAvailable(secs)
 
-
-FetchContent_Declare(glm
-    GIT_REPOSITORY https://github.com/g-truc/glm.git
-    GIT_TAG bf71a834948186f4097caa076cd2663c69a10e1e
+add_dependency(glad
+    https://github.com/Dav1dde/glad.git
+    v0.1.36
 )
-FetchContent_MakeAvailable(glm)
+
+add_dependency(glfw
+    https://github.com/glfw/glfw.git
+    3.3.7
+)
