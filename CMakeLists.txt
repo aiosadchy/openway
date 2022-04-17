@@ -29,6 +29,12 @@ add_executable(openway
     src/openway/gl/shader.cpp
     src/openway/gl/shader_program.cpp
 
+    src/openway/graphics/camera.cpp
+    src/openway/graphics/orthographic_camera.cpp
+    src/openway/graphics/perspective_camera.cpp
+
+    src/openway/utility/timer.cpp
+
     src/main.cpp
 )
 
