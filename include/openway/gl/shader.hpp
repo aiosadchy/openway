@@ -12,9 +12,9 @@
 
 class Shader : public Descriptor<GLuint> {
 public:
-    class ShaderCompilationError : public std::runtime_error {
+    class CompilationError : public std::runtime_error {
     public:
-        explicit ShaderCompilationError(GLuint descriptor);
+        explicit CompilationError(GLuint descriptor);
         GLuint get_descriptor() const;
 
     private:

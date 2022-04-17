@@ -8,11 +8,12 @@
 #include <glad/glad.h>
 
 
-Shader::ShaderCompilationError::ShaderCompilationError(GLuint descriptor)
-    : std::runtime_error("shader compilation error"), m_descriptor(descriptor) {
+Shader::CompilationError::CompilationError(GLuint descriptor)
+    : std::runtime_error("shader compilation error")
+    , m_descriptor(descriptor) {
 }
 
-GLuint Shader::ShaderCompilationError::get_descriptor() const {
+GLuint Shader::CompilationError::get_descriptor() const {
     return m_descriptor;
 }
 
@@ -29,7 +30,7 @@ Shader::Shader(GLenum type, std::string_view source)
     GLint success;
     glGetShaderiv(*this, GL_COMPILE_STATUS, &success);
     if (!success) {
-        throw ShaderCompilationError{*this};
+        throw CompilationError{*this};
     }
 }
 
@@ -50,7 +51,7 @@ Shader Shader::load_from_file(GLenum type, const std::string &filename) {
     std::string source = buffer.str();
     try {
         return Shader{type, source};
-    } catch (const ShaderCompilationError &error) {
+    } catch (const CompilationError &error) {
         const GLsizei max_log_length = 1024;
         GLchar compilation_log[max_log_length + 1];
         glGetShaderInfoLog(error.get_descriptor(), max_log_length, NULL, compilation_log);
@@ -58,6 +59,8 @@ Shader Shader::load_from_file(GLenum type, const std::string &filename) {
         // TODO: proper logging
         std::cerr << "Failed to compile shader \"" << filename << "\":" << std::endl;
         std::cerr << compilation_log << std::endl;
-        std::throw_with_nested(std::runtime_error{"error compiling shader \"" + filename + "\""});
+        std::throw_with_nested(
+            std::runtime_error{"error compiling shader \"" + filename + "\""}
+        );
     }
 }

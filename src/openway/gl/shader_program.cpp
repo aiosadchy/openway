@@ -1,10 +1,21 @@
 #include "openway/gl/shader_program.hpp"
 
+#include <exception>
 #include <iostream>
 #include <utility>
 
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
+
+
+ShaderProgram::LinkingError::LinkingError(GLuint descriptor)
+    : std::runtime_error("shader program linking error")
+    , m_descriptor(descriptor) {
+}
+
+GLuint ShaderProgram::LinkingError::get_descriptor() const {
+    return m_descriptor;
+}
 
 
 ShaderProgram::ShaderProgram(Shader &&vertex, Shader &&fragment)
@@ -19,15 +30,7 @@ ShaderProgram::ShaderProgram(Shader &&vertex, Shader &&fragment)
     GLint success;
     glGetProgramiv(*this, GL_LINK_STATUS, &success);
     if(!success) {
-        const GLsizei max_log_length = 1024;
-        GLchar compilation_log[max_log_length + 1];
-        glGetProgramInfoLog(*this, max_log_length, NULL, compilation_log);
-
-        // TODO: proper logging
-        std::cerr << "Failed to link shader program:" << std::endl;
-        std::cerr << compilation_log << std::endl;
-
-        throw std::runtime_error("error linking shader program");
+        throw LinkingError{*this};
     }
 }
 
@@ -68,4 +71,27 @@ GLint ShaderProgram::get_uniform_location(const std::string &name) {
         it = m_uniform_locations.insert({name, location}).first;
     }
     return it->second;
+}
+
+ShaderProgram ShaderProgram::load_from_files(
+        const std::string &vertex,
+        const std::string &fragment
+) {
+    try {
+        return ShaderProgram{
+            Shader::load_from_file(GL_VERTEX_SHADER, vertex),
+            Shader::load_from_file(GL_FRAGMENT_SHADER, fragment)
+        };
+    } catch (const LinkingError &error) {
+        const GLsizei max_log_length = 1024;
+        GLchar compilation_log[max_log_length + 1];
+        glGetProgramInfoLog(error.get_descriptor(), max_log_length, NULL, compilation_log);
+
+        // TODO: proper logging
+        std::cerr << "Failed to link program [\"" + vertex + "\", \"" + fragment + "\"]:" << std::endl;
+        std::cerr << compilation_log << std::endl;
+        std::throw_with_nested(
+            std::runtime_error("error linking program [\"" + vertex + "\", \"" + fragment + "\"]")
+        );
+    }
 }
