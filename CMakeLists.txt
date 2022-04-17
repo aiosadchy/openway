@@ -24,14 +24,23 @@ add_subdirectory(external)
 ################################################################################
 
 add_executable(openway
+    src/openway/gl/glad_session.cpp
+    src/openway/gl/glfw_session.cpp
+    src/openway/gl/shader.cpp
+    src/openway/gl/shader_program.cpp
+
     src/main.cpp
 )
 
-target_include_directories(openway PUBLIC include)
+target_include_directories(openway
+    PUBLIC include
+)
+
 target_link_libraries(openway
-    PUBLIC utl
-    PUBLIC secs
+    PUBLIC glfw
+    PUBLIC glad
     PUBLIC glm
+    PUBLIC utl
 )
 
 if(MSVC)
