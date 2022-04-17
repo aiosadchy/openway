@@ -6,6 +6,7 @@
 
 #include <glad/glad.h>
 #include <utl/non_copyable.hpp>
+#include <utl/default_movable.hpp>
 
 
 template <
@@ -52,5 +53,24 @@ private:
     UnderlyingType m_value;
 
 };
+
+
+#define OW_GL_DESCRIPTOR(Name, UnderlyingType, on_create, on_destroy)   \
+    class Name : public Descriptor<UnderlyingType> {                    \
+    public:                                                             \
+        Name()                                                          \
+            : Descriptor() {                                            \
+            on_create;                                                  \
+        }                                                               \
+                                                                        \
+        ~Name() {                                                       \
+            if (is_initialized()) {                                     \
+                on_destroy;                                             \
+            }                                                           \
+        }                                                               \
+                                                                        \
+        DEFAULT_MOVABLE(Name)                                           \
+                                                                        \
+    };
 
 #endif // OPENWAY_DESCRIPTOR_HPP
