@@ -6,9 +6,8 @@
 #include "openway/gl/descriptor.hpp"
 
 
-OW_GL_DESCRIPTOR(
-    Texture,
-    GLuint,
+using Texture = OW_GL_DESCRIPTOR(
+    TextureDescriptor,
     glGenTextures(1, get_descriptor_address()),
     glDeleteTextures(1, get_descriptor_address())
 )
