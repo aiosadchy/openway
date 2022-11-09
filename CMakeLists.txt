@@ -29,6 +29,8 @@ add_executable(openway
     src/openway/gl/shader.cpp
     src/openway/gl/shader_program.cpp
 
+    src/openway/log.cpp
+
     src/main.cpp
 )
 
@@ -43,8 +45,12 @@ target_link_libraries(openway
     PUBLIC utl
 )
 
+target_compile_definitions(openway
+    PUBLIC OPENWAY_SOURCE_ROOT="${CMAKE_SOURCE_DIR}"
+)
+
 if(MSVC)
     target_compile_options(openway PRIVATE /W4 /WX)
 else()
-    target_compile_options(openway PRIVATE -Wall -Wextra -pedantic -Werror)
+    target_compile_options(openway PRIVATE -fno-builtin-log -Wall -Wextra -pedantic -Werror)
 endif()
