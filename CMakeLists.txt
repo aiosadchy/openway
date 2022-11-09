@@ -46,7 +46,7 @@ target_link_libraries(openway
 )
 
 target_compile_definitions(openway
-    PRIVATE OPENWAY_SOURCE_ROOT="${CMAKE_SOURCE_DIR}"
+    PUBLIC OPENWAY_SOURCE_ROOT="${CMAKE_SOURCE_DIR}"
 )
 
 if(MSVC)
