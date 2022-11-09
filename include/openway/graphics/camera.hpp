@@ -7,7 +7,7 @@
 class Camera {
 public:
     Camera(const glm::vec3 &position, const glm::vec2 &rotation);
-    ~Camera();
+    virtual ~Camera();
 
     const glm::vec3 &get_position() const;
     void set_position(const glm::vec3 &position);
