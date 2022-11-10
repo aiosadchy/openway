@@ -74,24 +74,34 @@ void message(Level level, const char *msg, const char *file, int line) {
     g_log_callback(level, msg, get_relative_source_file_path(file), line);
 }
 
-void debug(const char *msg, const char *file, int line) {
+void message(Level level, const std::string &msg, const char *file, int line) {
+    message(level, msg.c_str(), file, line);
+}
+
+void debug(const std::string &msg, const char *file, int line) {
     message(Level::DEBUG, msg, file, line);
 }
 
-void info(const char *msg, const char *file, int line) {
+void info(const std::string &msg, const char *file, int line) {
     message(Level::INFO, msg, file, line);
 }
 
-void warning(const char *msg, const char *file, int line) {
+void warning(const std::string &msg, const char *file, int line) {
     message(Level::WARNING, msg, file, line);
 }
 
-void error(const char *msg, const char *file, int line) {
+void error(const std::string &msg, const char *file, int line) {
     message(Level::ERROR, msg, file, line);
 }
 
-void critical(const char *msg, const char *file, int line) {
+void critical(const std::string &msg, const char *file, int line) {
     message(Level::CRITICAL, msg, file, line);
+}
+
+
+ExceptionLogger::ExceptionLogger(const char *file, int line)
+    : m_file{file}
+    , m_line{line} {
 }
 
 } // namespace log
