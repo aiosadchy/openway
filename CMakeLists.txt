@@ -29,6 +29,8 @@ add_executable(openway
     src/openway/gl/shader.cpp
     src/openway/gl/shader_program.cpp
 
+    src/openway/log.cpp
+
     src/openway/graphics/camera.cpp
     src/openway/graphics/orthographic_camera.cpp
     src/openway/graphics/perspective_camera.cpp
@@ -54,11 +56,12 @@ target_link_libraries(openway
 )
 
 target_compile_definitions(openway
+    PUBLIC OPENWAY_SOURCE_ROOT="${CMAKE_SOURCE_DIR}"
     PUBLIC GLFW_INCLUDE_NONE
 )
 
 if(MSVC)
     target_compile_options(openway PRIVATE /W4 /WX)
 else()
-    target_compile_options(openway PRIVATE -Wall -Wextra -pedantic -Werror)
+    target_compile_options(openway PRIVATE -fno-builtin-log -Wall -Wextra -pedantic -Werror)
 endif()
