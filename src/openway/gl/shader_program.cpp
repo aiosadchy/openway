@@ -32,7 +32,7 @@ ShaderProgram::ShaderProgram(Shader &&vertex, Shader &&fragment)
     GLint success;
     glGetProgramiv(*this, GL_LINK_STATUS, &success);
     if(!success) {
-        throw LinkingError{*this};
+        OW_LOG_THROW LinkingError{*this};
     }
 }
 

@@ -20,7 +20,7 @@ enum class Level {
 using Callback = void (*)(Level level, const char *msg, const char *file, int line);
 
 bool operator<(Level a, Level b);
-const char *to_string(Level level);
+const char *as_string(Level level);
 
 void set_callback(Callback callback);
 
@@ -41,7 +41,7 @@ public:
 
     template <typename E>
     [[noreturn]] void operator<<(E &&exception) const {
-        error(exception.what(), m_file.c_str(), m_line);
+        error(to_string("[exception] ", exception.what()), m_file.c_str(), m_line);
         throw exception;
     }
 

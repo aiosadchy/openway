@@ -2,11 +2,13 @@
 
 #include <stdexcept>
 
+#include "openway/log.hpp"
+
 
 Window::Window(int width, int height, const std::string &title, GLFWmonitor *monitor)
     : m_handle(glfwCreateWindow(width, height, title.c_str(), monitor, nullptr)) {
     if (m_handle == nullptr) {
-        throw std::runtime_error("error creating window");
+        OW_LOG_THROW std::runtime_error("error creating window");
     }
 }
 

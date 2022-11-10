@@ -32,7 +32,7 @@ Shader::Shader(GLenum type, std::string_view source)
     GLint success;
     glGetShaderiv(*this, GL_COMPILE_STATUS, &success);
     if (!success) {
-        throw CompilationError{*this};
+        OW_LOG_THROW CompilationError{*this};
     }
 }
 

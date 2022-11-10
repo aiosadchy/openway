@@ -13,7 +13,7 @@ void default_callback(Level level, const char *message, const char *file, int li
     if (file != nullptr) {
         std::cerr << "[" << file << ":" << std::max(line, 0) << "]";
     }
-    std::cerr << " [" << to_string(level) << "] " << message << std::endl;
+    std::cerr << " [" << as_string(level) << "] " << message << std::endl;
 }
 
 const char *get_relative_source_file_path(const char *source_file_path) {
@@ -38,7 +38,7 @@ bool operator<(Level a, Level b) {
     return static_cast<U>(a) < static_cast<U>(b);
 }
 
-const char *to_string(Level level) {
+const char *as_string(Level level) {
     switch (level) {
         case Level::DEBUG:      return "DEBUG";
         case Level::INFO:       return "INFO";

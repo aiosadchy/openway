@@ -5,6 +5,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "openway/log.hpp"
+
 
 namespace {
 
@@ -16,10 +18,10 @@ bool s_glad_session_is_initialized = false;
 
 GLADSession::GLADSession() {
     if (s_glad_session_is_initialized) {
-        throw std::runtime_error("glad session is already initialized");
+        OW_LOG_THROW std::runtime_error("glad session is already initialized");
     }
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
-        throw std::runtime_error("error loading OpenGL");
+        OW_LOG_THROW std::runtime_error("error loading OpenGL");
     }
     s_glad_session_is_initialized = true;
 }
