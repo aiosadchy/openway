@@ -16,7 +16,7 @@ enum KeyState {
 using KeyboardState = std::array<std::array<bool, 4>, GLFW_KEY_LAST + 1>;
 
 // TODO: a faster solution
-std::unordered_map<GLFWwindow *, KeyboardState> keyboard_state = {};
+std::unordered_map<GLFWwindow *, KeyboardState> s_keyboard_state = {};
 
 void key_callback(
         GLFWwindow *window,
@@ -28,7 +28,7 @@ void key_callback(
     if (key == GLFW_KEY_UNKNOWN) {
         return;
     }
-    KeyboardState &keyboard = keyboard_state[window];
+    KeyboardState &keyboard = s_keyboard_state[window];
     if (action == GLFW_PRESS) {
         keyboard[key][WAS_PRESSED] = true;
         keyboard[key][IS_DOWN] = true;
@@ -44,21 +44,21 @@ void key_callback(
 
 Keyboard::Keyboard(Window &window)
     : m_window_handle(window) {
-    glfwSetKeyCallback(window, key_callback);
+    s_keyboard_state.try_emplace(m_window_handle);
 }
 
 Keyboard::~Keyboard() = default;
 
 bool Keyboard::is_pressed(int key) const {
-    return keyboard_state[m_window_handle][key][WAS_PRESSED];
+    return s_keyboard_state[m_window_handle][key][WAS_PRESSED];
 }
 
 bool Keyboard::is_down(int key) const {
-    return keyboard_state[m_window_handle][key][IS_DOWN];
+    return s_keyboard_state[m_window_handle][key][IS_DOWN];
 }
 
 bool Keyboard::is_released(int key) const {
-    return keyboard_state[m_window_handle][key][WAS_RELEASED];
+    return s_keyboard_state[m_window_handle][key][WAS_RELEASED];
 }
 
 bool Keyboard::is_up(int key) const {
@@ -66,9 +66,13 @@ bool Keyboard::is_up(int key) const {
 }
 
 void Keyboard::tick() {
-    for (auto &key_state : keyboard_state[m_window_handle]) {
+    for (auto &key_state : s_keyboard_state[m_window_handle]) {
         key_state[WAS_PRESSED] = false;
         key_state[WAS_RELEASED] = false;
         key_state[WAS_DOWN] = key_state[IS_DOWN];
     }
+}
+
+void Keyboard::initialize_keyboard(Window &window) {
+    glfwSetKeyCallback(window, key_callback);
 }

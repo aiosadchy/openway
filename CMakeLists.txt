@@ -33,6 +33,10 @@ add_executable(openway
     src/openway/graphics/orthographic_camera.cpp
     src/openway/graphics/perspective_camera.cpp
 
+    src/openway/io/keyboard.cpp
+    src/openway/io/mouse.cpp
+    src/openway/io/window.cpp
+
     src/openway/utility/timer.cpp
 
     src/main.cpp
@@ -47,6 +51,10 @@ target_link_libraries(openway
     PUBLIC glad
     PUBLIC glm
     PUBLIC utl
+)
+
+target_compile_definitions(openway
+    PUBLIC GLFW_INCLUDE_NONE
 )
 
 if(MSVC)

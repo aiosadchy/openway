@@ -19,6 +19,8 @@ public:
 
     void tick();
 
+    static void initialize_keyboard(Window &window);
+
 private:
     GLFWwindow *m_window_handle;
 
