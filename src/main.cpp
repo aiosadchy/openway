@@ -16,6 +16,12 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char **argv) {
         std::cout << "Everything seems to be working..." << std::endl;
     }
 
+    try {
+        OW_LOG_THROW std::runtime_error("a regular exception occurred!");
+    } catch (const std::runtime_error &e) {
+        OW_LOG_INFO("caught exception: ", e.what());
+    }
+
     std::cout << OPENWAY_SOURCE_ROOT << std::endl;
     std::cout << __FILE__ << std::endl;
 
