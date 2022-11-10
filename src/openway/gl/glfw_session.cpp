@@ -5,6 +5,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include "openway/log.hpp"
+
 
 namespace {
 
@@ -30,6 +32,5 @@ GLFWSession::~GLFWSession() {
 }
 
 void GLFWSession::error_callback(int error, const char *description) {
-    // TODO: proper logging
-    std::cerr << "GLFW error [" << error << "]: " << description << std::endl;
+    OW_LOG_ERROR("GLFW error [" , error , "]: ", description);
 }

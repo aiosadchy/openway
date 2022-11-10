@@ -7,6 +7,8 @@
 
 #include <glad/glad.h>
 
+#include "openway/log.hpp"
+
 
 Shader::CompilationError::CompilationError(GLuint descriptor)
     : std::runtime_error("shader compilation error")
@@ -56,9 +58,7 @@ Shader Shader::load_from_file(GLenum type, const std::string &filename) {
         GLchar compilation_log[max_log_length + 1];
         glGetShaderInfoLog(error.get_descriptor(), max_log_length, NULL, compilation_log);
 
-        // TODO: proper logging
-        std::cerr << "Failed to compile shader \"" << filename << "\":" << std::endl;
-        std::cerr << compilation_log << std::endl;
+        OW_LOG_ERROR("Failed to compile shader \"", filename, "\":\n", compilation_log);
         std::throw_with_nested(
             std::runtime_error{"error compiling shader \"" + filename + "\""}
         );

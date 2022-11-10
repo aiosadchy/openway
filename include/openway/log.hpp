@@ -4,7 +4,8 @@
 #include "openway/utility/to_string.hpp"
 
 
-namespace log {
+// TODO: make this a class
+namespace Log {
 
 enum class Level {
     DEBUG,
@@ -31,13 +32,13 @@ void warning(const char *msg, const char *file, int line);
 void error(const char *msg, const char *file, int line);
 void critical(const char *msg, const char *file, int line);
 
-} // namespace log
+} // namespace Log
 
 
-#define OW_LOG_DEBUG(...)    log::debug    (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
-#define OW_LOG_INFO(...)     log::info     (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
-#define OW_LOG_WARNING(...)  log::warning  (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
-#define OW_LOG_ERROR(...)    log::error    (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
-#define OW_LOG_CRITICAL(...) log::critical (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
+#define OW_LOG_DEBUG(...)    Log::debug    (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
+#define OW_LOG_INFO(...)     Log::info     (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
+#define OW_LOG_WARNING(...)  Log::warning  (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
+#define OW_LOG_ERROR(...)    Log::error    (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
+#define OW_LOG_CRITICAL(...) Log::critical (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
 
 #endif // OPENWAY_LOG_HPP

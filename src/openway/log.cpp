@@ -5,7 +5,7 @@
 #include "openway/log.hpp"
 
 
-namespace log {
+namespace Log {
 
 namespace {
 
@@ -94,4 +94,4 @@ void critical(const char *msg, const char *file, int line) {
     message(Level::CRITICAL, msg, file, line);
 }
 
-} // namespace log
+} // namespace Log

@@ -63,5 +63,5 @@ target_compile_definitions(openway
 if(MSVC)
     target_compile_options(openway PRIVATE /W4 /WX)
 else()
-    target_compile_options(openway PRIVATE -fno-builtin-log -Wall -Wextra -pedantic -Werror)
+    target_compile_options(openway PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()

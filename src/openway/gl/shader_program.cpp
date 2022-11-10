@@ -7,6 +7,8 @@
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "openway/log.hpp"
+
 
 ShaderProgram::LinkingError::LinkingError(GLuint descriptor)
     : std::runtime_error("shader program linking error")
@@ -87,9 +89,7 @@ ShaderProgram ShaderProgram::load_from_files(
         GLchar compilation_log[max_log_length + 1];
         glGetProgramInfoLog(error.get_descriptor(), max_log_length, NULL, compilation_log);
 
-        // TODO: proper logging
-        std::cerr << "Failed to link program [\"" + vertex + "\", \"" + fragment + "\"]:" << std::endl;
-        std::cerr << compilation_log << std::endl;
+        OW_LOG_ERROR("Failed to link program [\"", vertex, "\", \"", fragment, "\"]:\n", compilation_log);
         std::throw_with_nested(
             std::runtime_error("error linking program [\"" + vertex + "\", \"" + fragment + "\"]")
         );
