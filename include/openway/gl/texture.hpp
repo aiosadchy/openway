@@ -6,10 +6,10 @@
 #include "openway/gl/descriptor.hpp"
 
 
-using Texture = OW_GL_DECLARE_DESCRIPTOR(
-    TextureDescriptor,
-    glGenTextures(1, get_descriptor_address()),
-    glDeleteTextures(1, get_descriptor_address())
+OW_GL_DECLARE_DESCRIPTOR(
+    Texture,
+    glGenTextures(1, *this),
+    glDeleteTextures(1, *this)
 )
 
 #endif // OPENWAY_TEXTURE_HPP

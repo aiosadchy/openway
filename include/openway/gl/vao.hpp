@@ -7,10 +7,10 @@
 #include "openway/gl/descriptor.hpp"
 
 
-using VAO = OW_GL_DECLARE_DESCRIPTOR(
-    VAODescriptor,
-    glGenVertexArrays(1, get_descriptor_address()),
-    glDeleteVertexArrays(1, get_descriptor_address())
+OW_GL_DECLARE_DESCRIPTOR(
+    VAO,
+    glGenVertexArrays(1, *this),
+    glDeleteVertexArrays(1, *this)
 )
 
 #endif // OPENWAY_VAO_HPP

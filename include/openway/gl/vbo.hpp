@@ -7,10 +7,10 @@
 #include "openway/gl/descriptor.hpp"
 
 
-using VBO = OW_GL_DECLARE_DESCRIPTOR(
-    VBODescriptor,
-    glGenBuffers(1, get_descriptor_address()),
-    glDeleteBuffers(1, get_descriptor_address())
+OW_GL_DECLARE_DESCRIPTOR(
+    VBO,
+    glGenBuffers(1, *this),
+    glDeleteBuffers(1, *this)
 )
 
 #endif // OPENWAY_VBO_HPP

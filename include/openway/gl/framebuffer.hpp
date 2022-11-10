@@ -6,10 +6,10 @@
 #include "openway/gl/descriptor.hpp"
 
 
-using Framebuffer = OW_GL_DECLARE_DESCRIPTOR(
-    FramebufferDescriptor,
-    glGenFramebuffers(1, get_descriptor_address()),
-    glDeleteFramebuffers(1, get_descriptor_address())
+OW_GL_DECLARE_DESCRIPTOR(
+    Framebuffer,
+    glGenFramebuffers(1, *this),
+    glDeleteFramebuffers(1, *this)
 )
 
 #endif // OPENWAY_FRAMEBUFFER_HPP

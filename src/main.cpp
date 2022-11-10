@@ -18,7 +18,11 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char **argv) {
     Window window{800, 600, "Openway", nullptr};
     glfwMakeContextCurrent(window);
     GLADSession glad_session{};
+    Framebuffer framebuffer;
+    Renderbuffer renderbuffer;
     Texture texture;
+    VAO vao;
+    VBO vbo;
     UTL_REPEAT(1) {
         std::cout << "Everything seems to be working..." << std::endl;
     }

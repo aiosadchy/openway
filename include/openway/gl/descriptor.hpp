@@ -45,7 +45,7 @@ protected:
 
     ~Descriptor() = default;
 
-    UnderlyingType *get_descriptor_address() {
+    operator UnderlyingType *() {
         return &m_value;
     }
 
