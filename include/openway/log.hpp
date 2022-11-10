@@ -1,6 +1,8 @@
 #ifndef OPENWAY_LOG_HPP
 #define OPENWAY_LOG_HPP
 
+#include <string>
+
 #include "openway/utility/to_string.hpp"
 
 
@@ -25,20 +27,38 @@ void set_callback(Callback callback);
 Level get_log_level();
 void set_log_level(Level level);
 
-void message(Level level, const char *msg, const char *file, int line);
-void debug(const char *msg, const char *file, int line);
-void info(const char *msg, const char *file, int line);
-void warning(const char *msg, const char *file, int line);
-void error(const char *msg, const char *file, int line);
-void critical(const char *msg, const char *file, int line);
+void message(Level level, const char *msg,        const char *file, int line);
+void message(Level level, const std::string &msg, const char *file, int line);
+void debug   (const std::string &msg, const char *file, int line);
+void info    (const std::string &msg, const char *file, int line);
+void warning (const std::string &msg, const char *file, int line);
+void error   (const std::string &msg, const char *file, int line);
+void critical(const std::string &msg, const char *file, int line);
+
+class ExceptionLogger {
+public:
+    ExceptionLogger(const char *file, int line);
+
+    template <typename E>
+    [[noreturn]] void operator<<(E &&exception) const {
+        error(exception.what(), m_file.c_str(), m_line);
+        throw exception;
+    }
+
+private:
+    std::string m_file;
+    int m_line;
+
+};
 
 } // namespace Log
 
 
-#define OW_LOG_DEBUG(...)    Log::debug    (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
-#define OW_LOG_INFO(...)     Log::info     (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
-#define OW_LOG_WARNING(...)  Log::warning  (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
-#define OW_LOG_ERROR(...)    Log::error    (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
-#define OW_LOG_CRITICAL(...) Log::critical (to_string(__VA_ARGS__).c_str(), __FILE__, __LINE__)
+#define OW_LOG_DEBUG(...)    Log::debug    (to_string(__VA_ARGS__), __FILE__, __LINE__)
+#define OW_LOG_INFO(...)     Log::info     (to_string(__VA_ARGS__), __FILE__, __LINE__)
+#define OW_LOG_WARNING(...)  Log::warning  (to_string(__VA_ARGS__), __FILE__, __LINE__)
+#define OW_LOG_ERROR(...)    Log::error    (to_string(__VA_ARGS__), __FILE__, __LINE__)
+#define OW_LOG_CRITICAL(...) Log::critical (to_string(__VA_ARGS__), __FILE__, __LINE__)
+#define OW_LOG_THROW Log::ExceptionLogger{__FILE__, __LINE__} <<
 
 #endif // OPENWAY_LOG_HPP
