@@ -41,6 +41,6 @@ inline void wrap_call(detail::CommaGuard, const char *file, int line) {
 
 
 // TODO: do not wrap call into anything in release mode
-#define OW_GL_CALL(call) gl::detail::wrap_call((call, gl::detail::CommaGuard{}), __FILE__, __LINE__)
+#define OW_GL_CALL(call) gl::detail::wrap_call(((call), gl::detail::CommaGuard{}), __FILE__, __LINE__)
 
 #endif // OPENWAY_CALL_HPP
