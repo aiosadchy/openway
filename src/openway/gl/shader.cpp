@@ -2,11 +2,11 @@
 
 #include <exception>
 #include <fstream>
-#include <iostream>
 #include <sstream>
 
 #include <glad/glad.h>
 
+#include "openway/gl/call.hpp"
 #include "openway/log.hpp"
 
 
@@ -21,16 +21,16 @@ GLuint Shader::CompilationError::get_descriptor() const {
 
 
 Shader::Shader(GLenum type, std::string_view source)
-    : Descriptor(glCreateShader(type))
+    : Descriptor(OW_GL_CALL(glCreateShader(type)))
     , m_type(type) {
     const GLchar *source_ptr = source.begin();
     const GLint length = source.length();
 
-    glShaderSource(*this, 1, &source_ptr, &length);
-    glCompileShader(*this);
+    OW_GL_CALL(glShaderSource(*this, 1, &source_ptr, &length));
+    OW_GL_CALL(glCompileShader(*this));
 
     GLint success;
-    glGetShaderiv(*this, GL_COMPILE_STATUS, &success);
+    OW_GL_CALL(glGetShaderiv(*this, GL_COMPILE_STATUS, &success));
     if (!success) {
         OW_LOG_THROW CompilationError{*this};
     }
@@ -38,7 +38,7 @@ Shader::Shader(GLenum type, std::string_view source)
 
 Shader::~Shader() {
     if (is_initialized()) {
-        glDeleteShader(*this);
+        OW_GL_CALL(glDeleteShader(*this));
     }
 }
 
@@ -56,7 +56,7 @@ Shader Shader::load_from_file(GLenum type, const std::string &filename) {
     } catch (const CompilationError &error) {
         const GLsizei max_log_length = 1024;
         GLchar compilation_log[max_log_length + 1];
-        glGetShaderInfoLog(error.get_descriptor(), max_log_length, NULL, compilation_log);
+        OW_GL_CALL(glGetShaderInfoLog(error.get_descriptor(), max_log_length, NULL, compilation_log));
 
         OW_LOG_ERROR("Failed to compile shader \"", filename, "\":\n", compilation_log);
         std::throw_with_nested(

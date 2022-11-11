@@ -1,6 +1,5 @@
 #include "openway/gl/glfw_session.hpp"
 
-#include <iostream>
 #include <stdexcept>
 
 #include <GLFW/glfw3.h>
@@ -18,7 +17,7 @@ bool s_glfw_session_is_initialized = false;
 
 GLFWSession::GLFWSession() {
     if (s_glfw_session_is_initialized) {
-        OW_LOG_THROW std::runtime_error("glfw is already initialized");
+        OW_LOG_THROW std::runtime_error("GLFW is already initialized");
     }
     if (!glfwInit()) {
         OW_LOG_THROW std::runtime_error("error creating GLFW session");
@@ -32,5 +31,5 @@ GLFWSession::~GLFWSession() {
 }
 
 void GLFWSession::error_callback(int error, const char *description) {
-    OW_LOG_ERROR("GLFW error [" , error , "]: ", description);
+    OW_LOG_ERROR("GLFW error #" , error , ": ", description);
 }
