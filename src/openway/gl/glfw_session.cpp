@@ -17,10 +17,10 @@ bool s_glfw_session_is_initialized = false;
 
 GLFWSession::GLFWSession() {
     if (s_glfw_session_is_initialized) {
-        OW_LOG_THROW std::runtime_error("GLFW is already initialized");
+        OW_LOG_THROW std::runtime_error{"GLFW is already initialized"};
     }
     if (!glfwInit()) {
-        OW_LOG_THROW std::runtime_error("error creating GLFW session");
+        OW_LOG_THROW std::runtime_error{"error creating GLFW session"};
     }
     s_glfw_session_is_initialized = true;
     glfwSetErrorCallback(error_callback);

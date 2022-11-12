@@ -1,6 +1,5 @@
 #include "openway/gl/shader.hpp"
 
-#include <exception>
 #include <fstream>
 #include <sstream>
 
@@ -59,8 +58,6 @@ Shader Shader::load_from_file(GLenum type, const std::string &filename) {
         OW_GL_CALL(glGetShaderInfoLog(error.get_descriptor(), max_log_length, NULL, compilation_log));
 
         OW_LOG_ERROR("Failed to compile shader \"", filename, "\":\n", compilation_log);
-        std::throw_with_nested(
-            std::runtime_error{"error compiling shader \"" + filename + "\""}
-        );
+        OW_LOG_THROW std::runtime_error{"error compiling shader \"" + filename + "\""};
     }
 }

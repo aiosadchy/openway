@@ -1,6 +1,5 @@
 #include "openway/gl/shader_program.hpp"
 
-#include <exception>
 #include <utility>
 
 #include <glad/glad.h>
@@ -89,9 +88,7 @@ ShaderProgram ShaderProgram::load_from_files(
         GLchar compilation_log[max_log_length + 1];
         OW_GL_CALL(glGetProgramInfoLog(error.get_descriptor(), max_log_length, NULL, compilation_log));
 
-        OW_LOG_ERROR("Failed to link program [\"", vertex, "\", \"", fragment, "\"]:\n", compilation_log);
-        std::throw_with_nested(
-            std::runtime_error("error linking program [\"" + vertex + "\", \"" + fragment + "\"]")
-        );
+        OW_LOG_ERROR("Failed to link program {\"", vertex, "\", \"", fragment, "\"}:\n", compilation_log);
+        OW_LOG_THROW std::runtime_error{"error linking program {\"" + vertex + "\", \"" + fragment + "\"}"};
     }
 }
