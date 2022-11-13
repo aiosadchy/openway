@@ -11,7 +11,9 @@
 #include "openway/gl/vao.hpp"
 #include "openway/gl/vbo.hpp"
 
+#include "openway/debug.hpp"
 #include "openway/log.hpp"
+
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] const char **argv) {
     GLFWSession glfw_session{};
@@ -35,7 +37,10 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char **argv) {
             OW_LOG_THROW std::runtime_error{"another error"};
         }
     } catch (const std::exception &e) {
-        // TODO: check if nested exceptions are working
+        auto messages = unwrap_exception(e);
+        for (const std::string &message : messages) {
+            std::cout << " - " << message << std::endl;
+        }
     }
 
     try {
@@ -43,10 +48,14 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char **argv) {
     } catch (...) {
     }
 
-    std::cout << OPENWAY_SOURCE_ROOT << std::endl;
+    std::cout << OW_SOURCE_ROOT << std::endl;
     std::cout << __FILE__ << std::endl;
 
-    OW_LOG_DEBUG("asdasda ", 12, " ", argc, argv[0]);
+    OW_LOG_DEBUG("debug message ", 12, " ", argc, argv[0]);
+
+    OW_DEBUG_SECTION(
+        std::cout << "!!!!! debug section!" << std::endl;
+    )
 
     return 0;
 }

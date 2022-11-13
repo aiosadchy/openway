@@ -29,7 +29,6 @@ add_executable(openway
     src/openway/gl/shader.cpp
     src/openway/gl/shader_program.cpp
 
-    src/openway/log.cpp
 
     src/openway/graphics/camera.cpp
     src/openway/graphics/orthographic_camera.cpp
@@ -40,6 +39,9 @@ add_executable(openway
     src/openway/io/window.cpp
 
     src/openway/utility/timer.cpp
+
+    src/openway/log.cpp
+    src/openway/debug.cpp
 
     src/main.cpp
 )
@@ -57,8 +59,11 @@ target_link_libraries(openway
 )
 
 target_compile_definitions(openway
-    PUBLIC OPENWAY_SOURCE_ROOT="${CMAKE_SOURCE_DIR}"
     PUBLIC GLFW_INCLUDE_NONE
+
+    PUBLIC $<$<CONFIG:Debug>:OW_DEBUG>
+    PUBLIC $<$<CONFIG:Release>:OW_MINIMUM_LOG_LEVEL=INFO>
+    PUBLIC OW_SOURCE_ROOT="${CMAKE_SOURCE_DIR}"
 )
 
 if(MSVC)

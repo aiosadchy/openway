@@ -6,6 +6,7 @@
 
 #include <glad/glad.h>
 
+#include "openway/debug.hpp"
 #include "openway/log.hpp"
 
 
@@ -64,13 +65,16 @@ inline void wrap_call(detail::CommaGuard, const char *file, int line, bool throw
 } // namespace gl
 
 
-// TODO: do not wrap call onto anything in release mode
-#define OW_GL_CALL(call)                    \
-    gl::detail::wrap_call(                  \
-        ((call), gl::detail::CommaGuard{}), \
-        __FILE__,                           \
-        __LINE__,                           \
-        true                                \
-    )
+#ifdef OW_DEBUG
+    #define OW_GL_CALL(call)                    \
+        gl::detail::wrap_call(                  \
+            ((call), gl::detail::CommaGuard{}), \
+            __FILE__,                           \
+            __LINE__,                           \
+            true                                \
+        )
+#else
+    #define OW_GL_CALL(call) call
+#endif
 
 #endif // OPENWAY_CALL_HPP

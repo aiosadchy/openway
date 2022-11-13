@@ -8,6 +8,11 @@
 #include "openway/utility/to_string.hpp"
 
 
+#ifndef OW_MINIMUM_LOG_LEVEL
+    #define OW_MINIMUM_LOG_LEVEL DEBUG
+#endif
+
+
 class Log {
 public:
     enum class Level {
@@ -72,7 +77,7 @@ private:
 };
 
 
-inline bool operator<(Log::Level a, Log::Level b) noexcept {
+constexpr bool operator<(Log::Level a, Log::Level b) noexcept {
     using U = std::underlying_type_t<Log::Level>;
     return static_cast<U>(a) < static_cast<U>(b);
 }
