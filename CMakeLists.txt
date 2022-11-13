@@ -49,9 +49,10 @@ target_include_directories(openway
 )
 
 target_link_libraries(openway
-    PUBLIC glfw
     PUBLIC glad
+    PUBLIC glfw
     PUBLIC glm
+    PUBLIC tinyobjloader
     PUBLIC utl
 )
 
