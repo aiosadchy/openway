@@ -1,8 +1,7 @@
+#include "openway/log.hpp"
+
 #include <algorithm>
 #include <iostream>
-#include <type_traits>
-
-#include "openway/log.hpp"
 
 
 namespace {

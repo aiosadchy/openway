@@ -47,6 +47,7 @@ void ShaderProgram::use() {
 
 void ShaderProgram::set_uniform(const std::string &name, const glm::mat4 &matrix) {
     GLint location = get_uniform_location(name);
+    // TODO: use glProgramUniform or something else to preserve uniform values
     OW_GL_CALL(glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix)));
 }
 

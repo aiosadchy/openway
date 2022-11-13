@@ -3,6 +3,7 @@
 
 #include <exception>
 #include <string>
+#include <type_traits>
 
 #include "openway/utility/to_string.hpp"
 
