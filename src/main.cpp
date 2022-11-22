@@ -17,10 +17,20 @@
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] const char **argv) {
     GLFWSession glfw_session{};
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT,   GLFW_TRUE );
+    glfwWindowHint(GLFW_RESIZABLE,              GLFW_FALSE);
+    // glfwWindowHint(GLFW_DECORATED,              GLFW_FALSE);
+    glfwWindowHint(GLFW_CENTER_CURSOR,          GLFW_TRUE );
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,  3         );
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,  3         );
+
+
     Window window{800, 600, "Openway", nullptr};
     glfwMakeContextCurrent(window);
+
     GLADSession glad_session{};
+
     Framebuffer framebuffer;
     Renderbuffer renderbuffer;
     Texture texture;
@@ -56,6 +66,19 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char **argv) {
     OW_DEBUG_SECTION(
         std::cout << "!!!!! debug section!" << std::endl;
     )
+
+    bool is_running = true;
+
+    while (is_running) {
+
+        glfwSwapBuffers(window);
+
+        glfwPollEvents();
+
+        if (glfwWindowShouldClose(window)) {
+            is_running = false;
+        }
+    }
 
     return 0;
 }

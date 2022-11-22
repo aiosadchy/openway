@@ -6,7 +6,7 @@
 
 
 Window::Window(int width, int height, const std::string &title, GLFWmonitor *monitor)
-    : m_handle(glfwCreateWindow(width, height, title.c_str(), monitor, nullptr)) {
+    : m_handle{glfwCreateWindow(width, height, title.c_str(), monitor, nullptr)} {
     if (m_handle == nullptr) {
         OW_LOG_THROW std::runtime_error{"error creating window"};
     }
