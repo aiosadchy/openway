@@ -45,12 +45,14 @@ EmptyLineBeforeAccessModifier: Always
 FixNamespaceComments: true
 IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex: '<[[:alnum:]]+>'
-    Priority: 10
-  - Regex: '<[[:alnum:]./]+>'
-    Priority: 20
-  - Regex: '"[[:alnum:]./]+"'
-    Priority: 30
+  - Regex: '<[[:alnum:]\-_]+>'
+    Priority: 1
+  - Regex: '<[[:alnum:]\-_./]+>'
+    Priority: 2
+  - Regex: '"[[:alnum:]\-_.]+"'
+    Priority: 3
+  - Regex: '"[[:alnum:]\-_./]+"'
+    Priority: 4
 IncludeIsMainRegex: "(_test)?$"
 IndentAccessModifiers: false
 IndentCaseBlocks: false
