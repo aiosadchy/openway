@@ -2,7 +2,7 @@ name: Build
 run-name: >
   ${{ 
     format(
-      '[{0} -> {1}]: PR#{2} updated', 
+      '[{0} → {1}]: PR#{2} updated', 
       github.head_ref,
       github.base_ref,
       github.event.number
