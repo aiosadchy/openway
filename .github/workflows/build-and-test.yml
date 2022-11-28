@@ -20,26 +20,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Dependencies
+      - name: Install Prerequisites
         run: |
-          echo "Installing ninja..."
-          sudo apt-get install \
-              ninja-build      \
-          ; echo "Done!"
-          
-          echo "Installing libgl..."
-          sudo apt-get install \
-              libgl-dev        \
-          ; echo "Done!"
-
-          echo "Installing glfw dependencies..."
-          sudo apt-get install \
-              libxrandr-dev    \
-              libxinerama-dev  \
-              libx11-dev       \
-              libxcursor-dev   \
-              libxi-dev        \
-          ; echo "Done!"
+          echo "Installing prerequisites..."
+          sudo apt-get install             \
+              libgl-dev                    \
+              libx11-dev                   \
+              libxcursor-dev               \
+              libxi-dev                    \
+              libxinerama-dev              \
+              libxrandr-dev                \
+              ninja-build                  \
+          ; echo "Finished!"
 
       - name: Create Build Environment
         run: cmake -E make_directory ${{github.workspace}}/build
