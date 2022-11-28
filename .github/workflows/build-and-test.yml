@@ -1,0 +1,55 @@
+name: Build And Test
+
+on:
+  push:
+    branches:
+      - master
+      - release/*
+  pull_request:
+    branches:
+      - master
+      - release/*
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          echo "Installing libgl..."
+          sudo apt install \
+              libgl-dev    \
+          ; echo "Done!"
+
+          echo "Installing glfw dependencies..."
+          sudo apt install    \
+              libxrandr-dev   \
+              libxinerama-dev \
+              libx11-dev      \
+              libxcursor-dev  \
+              libxi-dev       \
+          ; echo "Done!"
+
+      - name: Create Build Environment
+        run: cmake -E make_directory ${{github.workspace}}/build
+
+      - name: Configure CMake
+        shell: bash
+        working-directory: ${{github.workspace}}/build
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+
+      - name: Build
+        working-directory: ${{github.workspace}}/build
+        shell: bash
+        run: cmake --build . --config $BUILD_TYPE
+
+      - name: Test
+        working-directory: ${{github.workspace}}/build
+        shell: bash
+        run: ctest -C $BUILD_TYPE --output-on-failure
