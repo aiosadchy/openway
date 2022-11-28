@@ -85,6 +85,7 @@ ShaderProgram ShaderProgram::load_from_files(
             Shader::load_from_file(GL_FRAGMENT_SHADER, fragment)
         };
     } catch (const LinkingError &error) {
+        // TODO: remove this size gap, maybe move log to LinkingError
         const GLsizei max_log_length = 1024;
         GLchar compilation_log[max_log_length + 1];
         OW_GL_CALL(glGetProgramInfoLog(error.get_descriptor(), max_log_length, NULL, compilation_log));
