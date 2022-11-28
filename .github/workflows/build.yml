@@ -1,7 +1,7 @@
 name: Build
 run-name: >
   ${{ 
-    github.event == 'push' 
+    (github.event_name == 'push') 
     && format(
       '[{0}]: branch updated ({1})',
       github.ref_name,
