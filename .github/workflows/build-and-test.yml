@@ -23,22 +23,22 @@ jobs:
       - name: Install Dependencies
         run: |
           echo "Installing ninja..."
-          sudo apt install \
-              ninja-build  \
+          sudo apt-get install \
+              ninja-build      \
           ; echo "Done!"
           
           echo "Installing libgl..."
-          sudo apt install \
-              libgl-dev    \
+          sudo apt-get install \
+              libgl-dev        \
           ; echo "Done!"
 
           echo "Installing glfw dependencies..."
-          sudo apt install    \
-              libxrandr-dev   \
-              libxinerama-dev \
-              libx11-dev      \
-              libxcursor-dev  \
-              libxi-dev       \
+          sudo apt-get install \
+              libxrandr-dev    \
+              libxinerama-dev  \
+              libx11-dev       \
+              libxcursor-dev   \
+              libxi-dev        \
           ; echo "Done!"
 
       - name: Create Build Environment
