@@ -16,7 +16,7 @@ endfunction()
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory(external)
+add_subdirectory(external EXCLUDE_FROM_ALL)
 
 
 ################################################################################
