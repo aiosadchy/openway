@@ -1,5 +1,10 @@
 name: Build
-run-name: '[${{ github.head_ref }}] ${{ github.event.head_commit.message }}'
+run-name: >
+  ${{ 
+    github.event == push 
+    && format('[{0}]: {1}', github.ref_name, github.event.head_commit.message) 
+    || format('[{0}]: updated pull request from {1}', github.base_ref, github.head_ref) 
+  }}
 
 on:
   push:
