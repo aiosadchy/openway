@@ -44,9 +44,7 @@ jobs:
         shell: bash
         working-directory: ${{github.workspace}}/build
         run: |
-          cmake "$GITHUB_WORKSPACE"            \ 
-              -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
-              -G "${BUILD_TOOL}"
+          cmake "$GITHUB_WORKSPACE" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -G "${BUILD_TOOL}"
 
       - name: Build
         shell: bash
