@@ -25,7 +25,7 @@ jobs:
           echo "Installing libgl..."
           sudo apt install \
               libgl-dev    \
-          && echo "Done!"
+          ; echo "Done!"
 
           echo "Installing glfw dependencies..."
           sudo apt install    \
@@ -34,7 +34,7 @@ jobs:
               libx11-dev      \
               libxcursor-dev  \
               libxi-dev       \
-          && echo "Done!"
+          ; echo "Done!"
 
       - name: Create Build Environment
         run: cmake -E make_directory ${{github.workspace}}/build
