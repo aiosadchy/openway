@@ -38,10 +38,11 @@ jobs:
         shell: bash
         run: |
           echo "Installing prerequisites..."
-          sudo apt-get -qq install ${PREREQUISITES}
+          sudo apt-get -qq -o=Dpkg::Use-Pty=0 install ${PREREQUISITES}
           echo "Finished!"
 
       - name: Create Build Environment
+        shell: bash
         run: cmake -E make_directory ${{github.workspace}}/build
 
       - name: Configure CMake
