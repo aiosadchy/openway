@@ -39,9 +39,9 @@ jobs:
         run: |
           echo "Installing prerequisites..."
           for dependency in ${PREREQUISITES}; do
-            echo " - installing ${dependency}..."
+            echo "Installing dependency: ${dependency}..."
             sudo apt-get install "${dependency}"
-            echo "   done!"
+            echo "Done!"
           done
           echo "Finished!"
 
@@ -52,9 +52,9 @@ jobs:
         shell: bash
         working-directory: ${{github.workspace}}/build
         run: |
-          cmake "$GITHUB_WORKSPACE"        \
-          -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \ 
-          -G "${BUILD_TOOL}"
+          cmake "$GITHUB_WORKSPACE"            \
+              -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
+              -G "${BUILD_TOOL}"
 
       - name: Build
         shell: bash
