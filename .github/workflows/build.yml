@@ -16,7 +16,7 @@ on:
 
 env:
   BUILD_TYPE: Release
-  BUILD_REQUIREMENTS_FILE: ${{github.workspace}}/build_requirements.txt
+  BUILD_REQUIREMENTS_FILE: ${{github.workspace}}/build-requirements.txt
 
 jobs:
   build:
@@ -26,13 +26,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Debug
-        shell: bash
-        run: pwd; ls;
-
       - name: Install Build Requirements
         shell: bash
-        run: xargs sudo apt-get install -qq < "${BUILD_REQUIREMENTS_FILE}"
+        run: |
+          touch "${BUILD_REQUIREMENTS_FILE}"
+          xargs sudo apt-get install -qq < "${BUILD_REQUIREMENTS_FILE}"
 
       - name: Create Build Environment
         shell: bash
