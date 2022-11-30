@@ -26,6 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Debug
+        shell: bash
+        run: pwd; ls;
+
       - name: Install Build Requirements
         shell: bash
         run: xargs sudo apt-get install -qq < "${BUILD_REQUIREMENTS_FILE}"
