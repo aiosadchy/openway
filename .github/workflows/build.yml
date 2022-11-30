@@ -18,13 +18,6 @@ env:
   BUILD_TYPE: Release
   BUILD_TOOL: Ninja
   PREREQUISITES: >
-    libgl-dev
-    libx11-dev
-    libxcursor-dev
-    libxi-dev
-    libxinerama-dev
-    libxrandr-dev
-    ninja-build
 
 jobs:
   build:
