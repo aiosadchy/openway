@@ -16,7 +16,7 @@ on:
 
 env:
   BUILD_TYPE: Release
-  BUILD_REQUIREMENTS_FILE: ${{github.workspace}}/build-requirements.txt
+  BUILD_REQUIREMENTS_FILE: build-requirements.txt
 
 jobs:
   build:
