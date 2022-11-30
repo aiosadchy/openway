@@ -16,8 +16,15 @@ on:
 
 env:
   BUILD_TYPE: Release
-  BUILD_TOOL: Ninja
+  BUILD_TOOL: Unix Makefiles
   PREREQUISITES: >
+    libgl-dev
+    libx11-dev
+    libxcursor-dev
+    libxi-dev
+    libxinerama-dev
+    libxrandr-dev
+    ninja-build
 
 jobs:
   build:
