@@ -16,15 +16,7 @@ on:
 
 env:
   BUILD_TYPE: Release
-  BUILD_TOOL: Ninja
-  PREREQUISITES: >
-    libgl-dev
-    libx11-dev
-    libxcursor-dev
-    libxi-dev
-    libxinerama-dev
-    libxrandr-dev
-    ninja-build
+  BUILD_REQUIREMENTS_FILE: ${{github.workspace}}/build_requirements.txt
 
 jobs:
   build:
@@ -34,9 +26,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Prerequisites
+      - name: Install Build Requirements
         shell: bash
-        run: sudo apt-get -qq -o=Dpkg::Use-Pty=0 install ${PREREQUISITES}
+        run: xargs sudo apt-get install -qq < "${BUILD_REQUIREMENTS_FILE}"
 
       - name: Create Build Environment
         shell: bash
@@ -45,17 +37,14 @@ jobs:
       - name: Configure CMake
         shell: bash
         working-directory: ${{github.workspace}}/build
-        run: |
-          cmake "$GITHUB_WORKSPACE"            \
-              -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
-              -G "${BUILD_TOOL}"
+        run: cmake "${GITHUB_WORKSPACE}" -DCMAKE_BUILD_TYPE="${BUILD_TYPE}"
 
       - name: Build
         shell: bash
         working-directory: ${{github.workspace}}/build
-        run: cmake --build . --config "$BUILD_TYPE"
+        run: cmake --build . --config "${BUILD_TYPE}"
 
       - name: Test
         shell: bash
         working-directory: ${{github.workspace}}/build
-        run: ctest -C "$BUILD_TYPE" --output-on-failure
+        run: ctest -C "${BUILD_TYPE}" --output-on-failure
