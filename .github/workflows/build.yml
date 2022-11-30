@@ -36,10 +36,7 @@ jobs:
 
       - name: Install Prerequisites
         shell: bash
-        run: |
-          echo "Installing prerequisites..."
-          sudo apt-get -qq -o=Dpkg::Use-Pty=0 install ${PREREQUISITES}
-          echo "Finished!"
+        run: sudo apt-get -qq -o=Dpkg::Use-Pty=0 install ${PREREQUISITES}
 
       - name: Create Build Environment
         shell: bash
