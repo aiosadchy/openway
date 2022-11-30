@@ -17,7 +17,7 @@ on:
 env:
   BUILD_TYPE: Release
   BUILD_TOOL: Ninja
-  PREREQUISITES: |
+  PREREQUISITES: >
     libgl-dev
     libx11-dev
     libxcursor-dev
@@ -38,11 +38,7 @@ jobs:
         shell: bash
         run: |
           echo "Installing prerequisites..."
-          for dependency in ${PREREQUISITES}; do
-            echo "Installing dependency: ${dependency}..."
-            sudo apt-get install "${dependency}"
-            echo "Done!"
-          done
+          sudo apt-get -qq install ${PREREQUISITES}
           echo "Finished!"
 
       - name: Create Build Environment
