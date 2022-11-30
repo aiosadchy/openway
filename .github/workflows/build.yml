@@ -16,7 +16,7 @@ on:
 
 env:
   BUILD_TYPE: Release
-  BUILD_TOOL: Unix Makefiles
+  BUILD_TOOL: Ninja
   PREREQUISITES: >
     libgl-dev
     libx11-dev
