@@ -45,7 +45,7 @@ protected:
 
     ~Descriptor() = default;
 
-    UnderlyingType *get_descriptor_address() {
+    operator UnderlyingType *() {
         return &m_value;
     }
 
@@ -55,22 +55,22 @@ private:
 };
 
 
-#define OW_GL_DESCRIPTOR(Name, on_create, on_destroy)   \
-    class Name : public Descriptor<GLuint> {            \
-    public:                                             \
-        Name()                                          \
-            : Descriptor() {                            \
-            on_create;                                  \
-        }                                               \
-                                                        \
-        ~Name() {                                       \
-            if (is_initialized()) {                     \
-                on_destroy;                             \
-            }                                           \
-        }                                               \
-                                                        \
-        DEFAULT_MOVABLE(Name)                           \
-                                                        \
+#define OW_GL_DECLARE_DESCRIPTOR(Name, on_create, on_destroy)   \
+    class Name : public Descriptor<GLuint> {                    \
+    public:                                                     \
+        Name()                                                  \
+            : Descriptor() {                                    \
+            on_create;                                          \
+        }                                                       \
+                                                                \
+        ~Name() {                                               \
+            if (is_initialized()) {                             \
+                on_destroy;                                     \
+            }                                                   \
+        }                                                       \
+                                                                \
+        DEFAULT_MOVABLE(Name)                                   \
+                                                                \
     };
 
 #endif // OPENWAY_DESCRIPTOR_HPP

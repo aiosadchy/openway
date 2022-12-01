@@ -5,11 +5,27 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "openway/log.hpp"
+
+
+namespace {
+
+// TODO: make this thread-safe?
+bool s_glad_session_is_initialized = false;
+
+} // namespace
+
 
 GLADSession::GLADSession() {
-    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
-        throw std::runtime_error("error loading OpenGL");
+    if (s_glad_session_is_initialized) {
+        OW_LOG_THROW std::runtime_error{"GLAD session is already initialized"};
     }
+    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
+        OW_LOG_THROW std::runtime_error{"error loading OpenGL"};
+    }
+    s_glad_session_is_initialized = true;
 }
 
-GLADSession::~GLADSession() = default;
+GLADSession::~GLADSession() {
+    s_glad_session_is_initialized = false;
+}

@@ -2,8 +2,7 @@ name: Build
 run-name: >
   ${{ 
     format(
-      '[{0} -> {1}]: PR#{2} updated', 
-      github.head_ref,
+      '[{0}] [PR#{1}] Build', 
       github.base_ref,
       github.event.number
     ) 
@@ -17,7 +16,7 @@ on:
 
 env:
   BUILD_TYPE: Release
-  BUILD_TOOL: Ninja
+  BUILD_REQUIREMENTS_FILE: build-requirements.txt
 
 jobs:
   build:
@@ -27,34 +26,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Prerequisites
+      - name: Install Build Requirements
         shell: bash
         run: |
-          echo "Installing prerequisites..."
-          sudo apt-get install             \
-              libgl-dev                    \
-              libx11-dev                   \
-              libxcursor-dev               \
-              libxi-dev                    \
-              libxinerama-dev              \
-              libxrandr-dev                \
-              ninja-build                  \
-          ; echo "Finished!"
+          touch "${BUILD_REQUIREMENTS_FILE}"
+          xargs sudo apt-get install -qq < "${BUILD_REQUIREMENTS_FILE}"
 
       - name: Create Build Environment
+        shell: bash
         run: cmake -E make_directory ${{github.workspace}}/build
 
       - name: Configure CMake
         shell: bash
         working-directory: ${{github.workspace}}/build
-        run: cmake "$GITHUB_WORKSPACE" -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -G "${BUILD_TOOL}"
+        run: cmake "${GITHUB_WORKSPACE}" -DCMAKE_BUILD_TYPE="${BUILD_TYPE}"
 
       - name: Build
         shell: bash
         working-directory: ${{github.workspace}}/build
-        run: cmake --build . --config "$BUILD_TYPE"
+        run: cmake --build . --config "${BUILD_TYPE}"
 
       - name: Test
         shell: bash
         working-directory: ${{github.workspace}}/build
-        run: ctest -C "$BUILD_TYPE" --output-on-failure
+        run: ctest -C "${BUILD_TYPE}" --output-on-failure

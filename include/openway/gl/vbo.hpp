@@ -4,13 +4,14 @@
 
 #include <glad/glad.h>
 
+#include "openway/gl/call.hpp"
 #include "openway/gl/descriptor.hpp"
 
 
-using VBO = OW_GL_DESCRIPTOR(
-    VBODescriptor,
-    glGenBuffers(1, get_descriptor_address()),
-    glDeleteBuffers(1, get_descriptor_address())
+OW_GL_DECLARE_DESCRIPTOR(
+    VBO,
+    OW_GL_CALL(glGenBuffers(1, *this)),
+    OW_GL_CALL(glDeleteBuffers(1, *this))
 )
 
 #endif // OPENWAY_VBO_HPP

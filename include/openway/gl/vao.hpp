@@ -4,13 +4,14 @@
 
 #include <glad/glad.h>
 
+#include "openway/gl/call.hpp"
 #include "openway/gl/descriptor.hpp"
 
 
-using VAO = OW_GL_DESCRIPTOR(
-    VAODescriptor,
-    glGenVertexArrays(1, get_descriptor_address()),
-    glDeleteVertexArrays(1, get_descriptor_address())
+OW_GL_DECLARE_DESCRIPTOR(
+    VAO,
+    OW_GL_CALL(glGenVertexArrays(1, *this)),
+    OW_GL_CALL(glDeleteVertexArrays(1, *this))
 )
 
 #endif // OPENWAY_VAO_HPP

@@ -3,13 +3,14 @@
 
 #include <glad/glad.h>
 
+#include "openway/gl/call.hpp"
 #include "openway/gl/descriptor.hpp"
 
 
-using Framebuffer = OW_GL_DESCRIPTOR(
-    FramebufferDescriptor,
-    glGenFramebuffers(1, get_descriptor_address()),
-    glDeleteFramebuffers(1, get_descriptor_address())
+OW_GL_DECLARE_DESCRIPTOR(
+    Framebuffer,
+    OW_GL_CALL(glGenFramebuffers(1, *this)),
+    OW_GL_CALL(glDeleteFramebuffers(1, *this))
 )
 
 #endif // OPENWAY_FRAMEBUFFER_HPP

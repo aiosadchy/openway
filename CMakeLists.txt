@@ -29,7 +29,19 @@ add_executable(openway
     src/openway/gl/shader.cpp
     src/openway/gl/shader_program.cpp
 
+
+    src/openway/graphics/camera.cpp
+    src/openway/graphics/orthographic_camera.cpp
+    src/openway/graphics/perspective_camera.cpp
+
+    src/openway/io/keyboard.cpp
+    src/openway/io/mouse.cpp
+    src/openway/io/window.cpp
+
+    src/openway/utility/timer.cpp
+
     src/openway/log.cpp
+    src/openway/debug.cpp
 
     src/main.cpp
 )
@@ -39,18 +51,23 @@ target_include_directories(openway
 )
 
 target_link_libraries(openway
-    PUBLIC glfw
     PUBLIC glad
+    PUBLIC glfw
     PUBLIC glm
+    PUBLIC tinyobjloader
     PUBLIC utl
 )
 
 target_compile_definitions(openway
-    PUBLIC OPENWAY_SOURCE_ROOT="${CMAKE_SOURCE_DIR}"
+    PUBLIC GLFW_INCLUDE_NONE
+
+    PUBLIC $<$<CONFIG:Debug>:OW_DEBUG>
+    PUBLIC $<$<CONFIG:Release>:OW_MINIMUM_LOG_LEVEL=INFO>
+    PUBLIC OW_SOURCE_ROOT="${CMAKE_SOURCE_DIR}"
 )
 
 if(MSVC)
     target_compile_options(openway PRIVATE /W4 /WX)
 else()
-    target_compile_options(openway PRIVATE -fno-builtin-log -Wall -Wextra -pedantic -Werror)
+    target_compile_options(openway PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
