@@ -1,7 +1,7 @@
 #include "openway/io/keyboard.hpp"
 
-#include <utility>
-
+#include "openway/io/input_state.hpp"
+#include "openway/io/window.hpp"
 #include "openway/log.hpp"
 
 namespace {
@@ -41,15 +41,14 @@ void key_callback(
 
 } // namespace
 
-Keyboard::Keyboard(
-    GLFWwindow *window_handle,
-    std::shared_ptr<InputState> input_state
-)
-    : m_state_ptr{std::move(input_state)} {
-    if (!m_state_ptr) {
-        OW_LOG_THROW std::invalid_argument{"empty window state"};
+Keyboard::Keyboard(Window &window)
+: m_state_ptr{static_cast<InputState *>(glfwGetWindowUserPointer(window))} {
+    if (m_state_ptr == nullptr) {
+        OW_LOG_THROW std::invalid_argument{
+            "unable to retrieve window input state",
+        };
     }
-    glfwSetKeyCallback(window_handle, key_callback);
+    glfwSetKeyCallback(window, key_callback);
 }
 
 Keyboard::~Keyboard() = default;

@@ -1,19 +1,15 @@
 #ifndef OPENWAY_KEYBOARD_HPP
 #define OPENWAY_KEYBOARD_HPP
 
-#include <memory>
-
 #include <GLFW/glfw3.h>
 #include <utl/non_copyable.hpp>
 
-#include "openway/io/input_state.hpp"
+class Window;
+struct InputState;
 
 class Keyboard {
 public:
-    explicit Keyboard(
-        GLFWwindow *window_handle,
-        std::shared_ptr<InputState> input_state
-    );
+    explicit Keyboard(Window &window);
     ~Keyboard();
 
     NON_COPYABLE(Keyboard)
@@ -27,7 +23,7 @@ public:
     void next_input_frame();
 
 private:
-    std::shared_ptr<InputState> m_state_ptr;
+    InputState *m_state_ptr;
 };
 
 #endif // OPENWAY_KEYBOARD_HPP
