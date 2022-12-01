@@ -1,43 +1,50 @@
 #include "openway/io/mouse.hpp"
 
-#include <unordered_map>
-
+#include "openway/io/input_state.hpp"
+#include "openway/io/window.hpp"
+#include "openway/log.hpp"
 
 namespace {
 
-// TODO: a faster solution
-std::unordered_map<GLFWwindow *, glm::vec2> s_mouse_state = {};
-
 void cursor_position_callback(
-        GLFWwindow *window,
-        double x_pos,
-        double y_pos
+    GLFWwindow *window,
+    double x_pos,
+    double y_pos
 ) {
-    s_mouse_state[window] = glm::vec2{x_pos, y_pos};
+    InputState *input_state = static_cast<InputState *>(
+        glfwGetWindowUserPointer(window)
+    );
+    if (input_state == nullptr) {
+        return;
+    }
+    input_state->mouse.current_position = {x_pos, y_pos};
 }
 
 } // namespace
 
 Mouse::Mouse(Window &window)
-    : m_window_handle(window)
-    , m_last_frame_position(0, 0)
-    , m_last_frame_movement(0, 0) {
+: m_state_ptr{static_cast<InputState *>(glfwGetWindowUserPointer(window))} {
+    if (!m_state_ptr) {
+        OW_LOG_THROW std::invalid_argument{
+            "unable to retrieve window input state",
+        };
+    }
     glfwSetCursorPosCallback(window, cursor_position_callback);
 }
 
 Mouse::~Mouse() = default;
 
 glm::vec2 Mouse::get_movement() const {
-    // TODO: consistent result between ticks
-    return s_mouse_state[m_window_handle] - m_last_frame_position;
+    const auto &curr_pos = m_state_ptr->mouse.current_position;
+    const auto &prev_pos = m_state_ptr->mouse.previous_position;
+    return {curr_pos.x - prev_pos.x, curr_pos.y - prev_pos.y};
 }
 
 glm::vec2 Mouse::get_position() const {
-    return m_last_frame_position;
+    const auto &pos = m_state_ptr->mouse.current_position;
+    return {pos.x, pos.y};
 }
 
-void Mouse::tick() {
-    // glm::vec2 current_position =
-    // m_last_frame_movement =
-    m_last_frame_position = s_mouse_state[m_window_handle];
+void Mouse::next_input_frame() {
+    m_state_ptr->mouse.previous_position = m_state_ptr->mouse.current_position;
 }

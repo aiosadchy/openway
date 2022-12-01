@@ -3,25 +3,25 @@
 
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <utl/non_copyable.hpp>
 
-#include "openway/io/window.hpp"
-
+class Window;
+struct InputState;
 
 class Mouse {
 public:
     explicit Mouse(Window &window);
     ~Mouse();
 
+    NON_COPYABLE(Mouse)
+
     glm::vec2 get_movement() const;
     glm::vec2 get_position() const;
 
-    void tick();
+    void next_input_frame();
 
 private:
-    GLFWwindow *m_window_handle;
-    glm::vec2 m_last_frame_position;
-    glm::vec2 m_last_frame_movement;
-
+    InputState *m_state_ptr;
 };
 
 #endif // OPENWAY_MOUSE_HPP
