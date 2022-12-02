@@ -30,7 +30,7 @@ public:
 
     DEFAULT_MOVABLE(ShaderProgram)
 
-    void use();
+    void use() const;
 
     void set_uniform(const std::string &name, const Uniform &value);
 

@@ -3,7 +3,7 @@
 #include <stdexcept>
 
 #include "openway/io/input_state.hpp"
-#include "openway/log.hpp"
+#include "openway/utility/log.hpp"
 
 Window::Window(
     int width,

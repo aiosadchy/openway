@@ -4,7 +4,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "openway/log.hpp"
+#include "openway/utility/log.hpp"
 
 
 namespace {

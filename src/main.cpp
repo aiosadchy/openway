@@ -2,7 +2,6 @@
 
 #include <utl/utl.hpp>
 
-#include "openway/debug.hpp"
 #include "openway/gl/framebuffer.hpp"
 #include "openway/gl/glad_session.hpp"
 #include "openway/gl/glfw_session.hpp"
@@ -12,7 +11,8 @@
 #include "openway/gl/vao.hpp"
 #include "openway/gl/vbo.hpp"
 #include "openway/io/window.hpp"
-#include "openway/log.hpp"
+#include "openway/utility/debug.hpp"
+#include "openway/utility/log.hpp"
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] const char **argv) {
     GLFWSession glfw_session{};

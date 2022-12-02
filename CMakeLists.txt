@@ -37,10 +37,9 @@ add_executable(openway
     src/openway/io/mouse.cpp
     src/openway/io/window.cpp
 
+    src/openway/utility/debug.cpp
+    src/openway/utility/log.cpp
     src/openway/utility/timer.cpp
-
-    src/openway/log.cpp
-    src/openway/debug.cpp
 
     src/main.cpp
 )

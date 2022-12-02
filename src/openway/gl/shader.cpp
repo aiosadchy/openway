@@ -6,7 +6,7 @@
 #include <glad/glad.h>
 
 #include "openway/gl/call.hpp"
-#include "openway/log.hpp"
+#include "openway/utility/log.hpp"
 
 
 Shader::CompilationError::CompilationError(GLuint descriptor)

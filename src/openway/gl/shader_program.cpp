@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "openway/gl/call.hpp"
-#include "openway/log.hpp"
+#include "openway/utility/log.hpp"
 
 namespace {
 
@@ -85,7 +85,7 @@ ShaderProgram::~ShaderProgram() {
     }
 }
 
-void ShaderProgram::use() {
+void ShaderProgram::use() const {
     OW_GL_CALL(glUseProgram(*this));
 }
 
