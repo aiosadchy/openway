@@ -2,34 +2,35 @@
 
 #include <utl/utl.hpp>
 
-#include "openway/io/window.hpp"
+#include "openway/debug.hpp"
+#include "openway/gl/framebuffer.hpp"
 #include "openway/gl/glad_session.hpp"
 #include "openway/gl/glfw_session.hpp"
-#include "openway/gl/framebuffer.hpp"
 #include "openway/gl/renderbuffer.hpp"
+#include "openway/gl/shader_program.hpp"
 #include "openway/gl/texture.hpp"
 #include "openway/gl/vao.hpp"
 #include "openway/gl/vbo.hpp"
-
-#include "openway/debug.hpp"
+#include "openway/io/window.hpp"
 #include "openway/log.hpp"
-
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] const char **argv) {
     GLFWSession glfw_session{};
 
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT,   GLFW_TRUE );
-    glfwWindowHint(GLFW_RESIZABLE,              GLFW_FALSE);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     // glfwWindowHint(GLFW_DECORATED,              GLFW_FALSE);
-    glfwWindowHint(GLFW_CENTER_CURSOR,          GLFW_TRUE );
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,  3         );
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,  3         );
+    glfwWindowHint(GLFW_CENTER_CURSOR, GLFW_TRUE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
 
     Window window{800, 600, "Openway", nullptr};
     glfwMakeContextCurrent(window);
 
     GLADSession glad_session{};
+
+    [[maybe_unused]] Uniform x = glm::vec2{1, 2};
 
     Framebuffer framebuffer;
     Renderbuffer renderbuffer;
@@ -70,7 +71,6 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char **argv) {
     bool is_running = true;
 
     while (is_running) {
-
         glfwSwapBuffers(window);
 
         glfwPollEvents();

@@ -2,7 +2,7 @@
 #                                   openway                                    #
 ################################################################################
 
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required(VERSION 3.8)
 
 project(openway
     VERSION         0.1.0
@@ -28,7 +28,6 @@ add_executable(openway
     src/openway/gl/glfw_session.cpp
     src/openway/gl/shader.cpp
     src/openway/gl/shader_program.cpp
-
 
     src/openway/graphics/camera.cpp
     src/openway/graphics/orthographic_camera.cpp

@@ -12,7 +12,7 @@
 
 #include "openway/gl/descriptor.hpp"
 #include "openway/gl/shader.hpp"
-
+#include "openway/gl/uniform.hpp"
 
 class ShaderProgram : public Descriptor<GLuint> {
 public:
@@ -23,7 +23,6 @@ public:
 
     private:
         GLuint m_descriptor;
-
     };
 
     ShaderProgram(Shader &&vertex, Shader &&fragment);
@@ -32,11 +31,8 @@ public:
     DEFAULT_MOVABLE(ShaderProgram)
 
     void use();
-    // TODO: more overloads
-    void set_uniform(const std::string &name, const glm::mat4 &matrix);
-    void set_uniform(const std::string &name, const glm::vec3 &vector);
-    void set_uniform(const std::string &name, float scalar);
-    void set_uniform(const std::string &name, int scalar);
+
+    void set_uniform(const std::string &name, const Uniform &value);
 
     static ShaderProgram load_from_files(const std::string &vertex, const std::string &fragment);
 
@@ -46,7 +42,6 @@ private:
     Shader m_vertex_shader;
     Shader m_fragment_shader;
     std::unordered_map<std::string, GLint> m_uniform_locations;
-
 };
 
 
