@@ -22,7 +22,7 @@ public:
 
     Descriptor(Descriptor &&another) noexcept {
         m_value = another.m_value;
-        another.m_value = std::numeric_limits<UnderlyingType>::max();
+        another.m_value = V_DEFAULT_VALUE;
     }
 
     Descriptor &operator=(Descriptor &&another) noexcept {
