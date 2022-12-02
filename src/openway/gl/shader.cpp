@@ -8,22 +8,20 @@
 #include "openway/gl/call.hpp"
 #include "openway/utility/log.hpp"
 
-
 Shader::CompilationError::CompilationError(GLuint descriptor)
-    : std::runtime_error("shader compilation error")
-    , m_descriptor(descriptor) {
+: std::runtime_error("shader compilation error")
+, m_descriptor(descriptor) {
 }
 
 GLuint Shader::CompilationError::get_descriptor() const {
     return m_descriptor;
 }
 
-
 Shader::Shader(GLenum type, std::string_view source)
-    : Descriptor(OW_GL_CALL(glCreateShader(type)))
-    , m_type(type) {
+: Descriptor(OW_GL_CALL(glCreateShader(type)))
+, m_type(type) {
     const GLchar *source_ptr = source.begin();
-    const GLint length = source.length();
+    const GLint length       = source.length();
 
     OW_GL_CALL(glShaderSource(*this, 1, &source_ptr, &length));
     OW_GL_CALL(glCompileShader(*this));
@@ -47,6 +45,9 @@ GLenum Shader::get_type() const {
 
 Shader Shader::load_from_file(GLenum type, const std::string &filename) {
     std::ifstream file(filename);
+    if (!file.is_open()) {
+        OW_LOG_THROW std::runtime_error{"unable to open file \"" + filename + "\""};
+    }
     std::stringstream buffer;
     buffer << file.rdbuf();
     std::string source = buffer.str();
