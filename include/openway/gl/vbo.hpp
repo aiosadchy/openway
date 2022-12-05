@@ -1,17 +1,25 @@
-#ifndef OPENWAY_VBO_HPP
-#define OPENWAY_VBO_HPP
-
+#ifndef OPENWAY_INCLUDE_OPENWAY_GL_VBO_HPP
+#define OPENWAY_INCLUDE_OPENWAY_GL_VBO_HPP
 
 #include <glad/glad.h>
+#include <utl/default_movable.hpp>
 
 #include "openway/gl/call.hpp"
-#include "openway/gl/descriptor.hpp"
+#include "openway/gl/gl_object.hpp"
 
+class VBO : public GLObject<GLuint> {
+public:
+    VBO() {
+        OW_GL_CALL(glGenBuffers(1, get_handle_ptr()));
+    }
 
-OW_GL_DECLARE_DESCRIPTOR(
-    VBO,
-    OW_GL_CALL(glGenBuffers(1, *this)),
-    OW_GL_CALL(glDeleteBuffers(1, *this))
-)
+    ~VBO() {
+        if (*this) {
+            OW_GL_CALL(glDeleteBuffers(1, get_handle_ptr()));
+        }
+    }
 
-#endif // OPENWAY_VBO_HPP
+    DEFAULT_MOVABLE(VBO)
+};
+
+#endif // OPENWAY_INCLUDE_OPENWAY_GL_VBO_HPP

@@ -1,16 +1,15 @@
-#ifndef OPENWAY_SHADER_HPP
-#define OPENWAY_SHADER_HPP
+#ifndef OPENWAY_INCLUDE_OPENWAY_GL_SHADER_HPP
+#define OPENWAY_INCLUDE_OPENWAY_GL_SHADER_HPP
 
+#include <stdexcept>
 #include <string>
 #include <string_view>
-#include <stdexcept>
 
 #include <utl/default_movable.hpp>
 
-#include "openway/gl/descriptor.hpp"
+#include "openway/gl/gl_object.hpp"
 
-
-class Shader : public Descriptor<GLuint> {
+class Shader : public GLObject<GLuint> {
 public:
     class CompilationError : public std::runtime_error {
     public:
@@ -19,7 +18,6 @@ public:
 
     private:
         GLuint m_descriptor;
-
     };
 
     Shader(GLenum type, std::string_view source);
@@ -33,8 +31,7 @@ public:
 
 private:
     GLenum m_type;
-
 };
 
 
-#endif // OPENWAY_SHADER_HPP
+#endif // OPENWAY_INCLUDE_OPENWAY_GL_SHADER_HPP

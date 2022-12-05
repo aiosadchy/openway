@@ -9,8 +9,8 @@
 #include "openway/utility/log.hpp"
 
 Shader::CompilationError::CompilationError(GLuint descriptor)
-: std::runtime_error("shader compilation error")
-, m_descriptor(descriptor) {
+: std::runtime_error{"shader compilation error"}
+, m_descriptor{descriptor} {
 }
 
 GLuint Shader::CompilationError::get_descriptor() const {
@@ -18,8 +18,8 @@ GLuint Shader::CompilationError::get_descriptor() const {
 }
 
 Shader::Shader(GLenum type, std::string_view source)
-: Descriptor(OW_GL_CALL(glCreateShader(type)))
-, m_type(type) {
+: GLObject{OW_GL_CALL(glCreateShader(type))}
+, m_type{type} {
     const GLchar *source_ptr = source.begin();
     const GLint length       = source.length();
 
@@ -34,7 +34,7 @@ Shader::Shader(GLenum type, std::string_view source)
 }
 
 Shader::~Shader() {
-    if (is_initialized()) {
+    if (*this) {
         OW_GL_CALL(glDeleteShader(*this));
     }
 }

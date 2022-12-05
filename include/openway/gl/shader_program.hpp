@@ -1,5 +1,5 @@
-#ifndef OPENWAY_SHADER_PROGRAM_HPP
-#define OPENWAY_SHADER_PROGRAM_HPP
+#ifndef OPENWAY_INCLUDE_OPENWAY_GL_SHADER_PROGRAM_HPP
+#define OPENWAY_INCLUDE_OPENWAY_GL_SHADER_PROGRAM_HPP
 
 #include <stdexcept>
 #include <string>
@@ -8,13 +8,12 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <utl/default_movable.hpp>
-#include <utl/non_copyable.hpp>
 
-#include "openway/gl/descriptor.hpp"
+#include "openway/gl/gl_object.hpp"
 #include "openway/gl/shader.hpp"
 #include "openway/gl/uniform.hpp"
 
-class ShaderProgram : public Descriptor<GLuint> {
+class ShaderProgram : public GLObject<GLuint> {
 public:
     class LinkingError : public std::runtime_error {
     public:
@@ -39,10 +38,11 @@ public:
 private:
     GLint get_uniform_location(const std::string &name);
 
+private:
     Shader m_vertex_shader;
     Shader m_fragment_shader;
     std::unordered_map<std::string, GLint> m_uniform_locations;
 };
 
 
-#endif // OPENWAY_SHADER_PROGRAM_HPP
+#endif // OPENWAY_INCLUDE_OPENWAY_GL_SHADER_PROGRAM_HPP
