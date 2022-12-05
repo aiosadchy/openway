@@ -29,7 +29,6 @@ RenderPass::RenderPass(
         attach_depth_output(m_depth_output.value(), use_stencil);
     }
 
-    // TODO: add support for multiple outputs
     OW_GL_CALL(glDrawBuffers(draw_buffers.size(), draw_buffers.data()));
 
     GLenum status = OW_GL_CALL(glCheckFramebufferStatus(GL_FRAMEBUFFER));
