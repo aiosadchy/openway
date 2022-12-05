@@ -10,12 +10,12 @@
 class Renderbuffer : public GLObject<GLuint> {
 public:
     Renderbuffer() {
-        OW_GL_CALL(glGenRenderbuffers(1, get_handle_ptr()));
+        OW_GL_CALL(glGenRenderbuffers(1, get_descriptor_ptr()));
     }
 
     ~Renderbuffer() {
         if (*this) {
-            OW_GL_CALL(glDeleteRenderbuffers(1, get_handle_ptr()));
+            OW_GL_CALL(glDeleteRenderbuffers(1, get_descriptor_ptr()));
         }
     }
 

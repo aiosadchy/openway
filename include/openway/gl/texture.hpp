@@ -10,12 +10,12 @@
 class Texture : public GLObject<GLuint> {
 public:
     Texture() {
-        OW_GL_CALL(glGenTextures(1, get_handle_ptr()));
+        OW_GL_CALL(glGenTextures(1, get_descriptor_ptr()));
     }
 
     ~Texture() {
         if (*this) {
-            OW_GL_CALL(glDeleteTextures(1, get_handle_ptr()));
+            OW_GL_CALL(glDeleteTextures(1, get_descriptor_ptr()));
         }
     }
 

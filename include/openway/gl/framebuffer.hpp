@@ -10,12 +10,12 @@
 class Framebuffer : public GLObject<GLuint> {
 public:
     Framebuffer() {
-        OW_GL_CALL(glGenFramebuffers(1, get_handle_ptr()));
+        OW_GL_CALL(glGenFramebuffers(1, get_descriptor_ptr()));
     }
 
     ~Framebuffer() {
         if (*this) {
-            OW_GL_CALL(glDeleteFramebuffers(1, get_handle_ptr()));
+            OW_GL_CALL(glDeleteFramebuffers(1, get_descriptor_ptr()));
         }
     }
 

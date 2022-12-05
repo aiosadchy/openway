@@ -10,12 +10,12 @@
 class VAO : public GLObject<GLuint> {
 public:
     VAO() {
-        OW_GL_CALL(glGenVertexArrays(1, get_handle_ptr()));
+        OW_GL_CALL(glGenVertexArrays(1, get_descriptor_ptr()));
     }
 
     ~VAO() {
         if (*this) {
-            OW_GL_CALL(glDeleteVertexArrays(1, get_handle_ptr()));
+            OW_GL_CALL(glDeleteVertexArrays(1, get_descriptor_ptr()));
         }
     }
 

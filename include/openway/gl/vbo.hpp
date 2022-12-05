@@ -10,12 +10,12 @@
 class VBO : public GLObject<GLuint> {
 public:
     VBO() {
-        OW_GL_CALL(glGenBuffers(1, get_handle_ptr()));
+        OW_GL_CALL(glGenBuffers(1, get_descriptor_ptr()));
     }
 
     ~VBO() {
         if (*this) {
-            OW_GL_CALL(glDeleteBuffers(1, get_handle_ptr()));
+            OW_GL_CALL(glDeleteBuffers(1, get_descriptor_ptr()));
         }
     }
 

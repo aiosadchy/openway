@@ -33,5 +33,4 @@ private:
     GLenum m_type;
 };
 
-
 #endif // OPENWAY_INCLUDE_OPENWAY_GL_SHADER_HPP

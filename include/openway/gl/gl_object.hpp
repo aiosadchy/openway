@@ -8,12 +8,31 @@
 #include <utl/non_copyable.hpp>
 
 template <
-    typename THandle,
-    THandle V_NULL_VALUE = std::numeric_limits<THandle>::max()>
+    typename TDescriptor,
+    TDescriptor V_NULL_VALUE = std::numeric_limits<TDescriptor>::max()>
 class GLObject {
 public:
-    using Handle                       = THandle;
-    static constexpr Handle NULL_VALUE = V_NULL_VALUE;
+    using Descriptor                       = TDescriptor;
+    static constexpr Descriptor NULL_VALUE = V_NULL_VALUE;
+
+public:
+    class Reference {
+    public:
+        Reference(const GLObject &object)
+        : m_handle{object} {
+        }
+
+        operator Descriptor() const {
+            return m_handle;
+        }
+
+        operator bool() const {
+            return m_handle != NULL_VALUE;
+        }
+
+    private:
+        Descriptor m_handle;
+    };
 
 public:
     NON_COPYABLE(GLObject)
@@ -28,7 +47,7 @@ public:
         return *this;
     }
 
-    operator Handle() const {
+    operator Descriptor() const {
         return m_handle;
     }
 
@@ -37,18 +56,18 @@ public:
     }
 
 protected:
-    explicit GLObject(Handle handle = NULL_VALUE)
+    explicit GLObject(Descriptor handle = NULL_VALUE)
     : m_handle{handle} {
     }
 
     ~GLObject() = default;
 
-    Handle *get_handle_ptr() {
+    Descriptor *get_descriptor_ptr() {
         return &m_handle;
     }
 
 private:
-    Handle m_handle;
+    Descriptor m_handle;
 };
 
 #endif // OPENWAY_INCLUDE_OPENWAY_GL_GL_OBJECT_HPP
