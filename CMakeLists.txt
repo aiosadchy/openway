@@ -30,7 +30,7 @@ add_executable(openway
     src/openway/gl/shader_program.cpp
 
     src/openway/graphics/camera.cpp
-    src/openway/graphics/fullscreen_pass.cpp
+    src/openway/graphics/render_pass.cpp
     src/openway/graphics/fullscreen_triangle.cpp
     src/openway/graphics/orthographic_camera.cpp
     src/openway/graphics/perspective_camera.cpp
