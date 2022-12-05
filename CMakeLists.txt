@@ -24,25 +24,26 @@ add_subdirectory(external EXCLUDE_FROM_ALL)
 ################################################################################
 
 add_executable(openway
+    src/main.cpp
+
     src/openway/gl/glad_session.cpp
     src/openway/gl/glfw_session.cpp
     src/openway/gl/shader.cpp
     src/openway/gl/shader_program.cpp
 
     src/openway/graphics/camera.cpp
+    src/openway/graphics/fullscreen_triangle.cpp
     src/openway/graphics/orthographic_camera.cpp
     src/openway/graphics/perspective_camera.cpp
+    src/openway/graphics/render_pass.cpp
 
     src/openway/io/keyboard.cpp
     src/openway/io/mouse.cpp
     src/openway/io/window.cpp
 
+    src/openway/utility/debug.cpp
+    src/openway/utility/log.cpp
     src/openway/utility/timer.cpp
-
-    src/openway/log.cpp
-    src/openway/debug.cpp
-
-    src/main.cpp
 )
 
 target_include_directories(openway

@@ -6,7 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "openway/gl/call.hpp"
-#include "openway/log.hpp"
+#include "openway/utility/log.hpp"
 
 namespace {
 
@@ -55,8 +55,8 @@ private:
 } // namespace
 
 ShaderProgram::LinkingError::LinkingError(GLuint descriptor)
-: std::runtime_error("shader program linking error")
-, m_descriptor(descriptor) {
+: std::runtime_error{"shader program linking error"}
+, m_descriptor{descriptor} {
 }
 
 GLuint ShaderProgram::LinkingError::get_descriptor() const {
@@ -64,10 +64,10 @@ GLuint ShaderProgram::LinkingError::get_descriptor() const {
 }
 
 ShaderProgram::ShaderProgram(Shader &&vertex, Shader &&fragment)
-: Descriptor(OW_GL_CALL(glCreateProgram()))
-, m_vertex_shader(std::move(vertex))
-, m_fragment_shader(std::move(fragment))
-, m_uniform_locations() {
+: GLObject{OW_GL_CALL(glCreateProgram())}
+, m_vertex_shader{std::move(vertex)}
+, m_fragment_shader{std::move(fragment)}
+, m_uniform_locations{} {
     OW_GL_CALL(glAttachShader(*this, m_vertex_shader));
     OW_GL_CALL(glAttachShader(*this, m_fragment_shader));
     OW_GL_CALL(glLinkProgram(*this));
@@ -80,12 +80,12 @@ ShaderProgram::ShaderProgram(Shader &&vertex, Shader &&fragment)
 }
 
 ShaderProgram::~ShaderProgram() {
-    if (is_initialized()) {
+    if (*this) {
         OW_GL_CALL(glDeleteProgram(*this));
     }
 }
 
-void ShaderProgram::use() {
+void ShaderProgram::use() const {
     OW_GL_CALL(glUseProgram(*this));
 }
 

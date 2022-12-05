@@ -1,16 +1,25 @@
-#ifndef OPENWAY_FRAMEBUFFER_HPP
-#define OPENWAY_FRAMEBUFFER_HPP
+#ifndef OPENWAY_INCLUDE_OPENWAY_GL_FRAMEBUFFER_HPP
+#define OPENWAY_INCLUDE_OPENWAY_GL_FRAMEBUFFER_HPP
 
 #include <glad/glad.h>
+#include <utl/default_movable.hpp>
 
 #include "openway/gl/call.hpp"
-#include "openway/gl/descriptor.hpp"
+#include "openway/gl/gl_object.hpp"
 
+class Framebuffer : public GLObject<GLuint> {
+public:
+    Framebuffer() {
+        OW_GL_CALL(glGenFramebuffers(1, get_descriptor_ptr()));
+    }
 
-OW_GL_DECLARE_DESCRIPTOR(
-    Framebuffer,
-    OW_GL_CALL(glGenFramebuffers(1, *this)),
-    OW_GL_CALL(glDeleteFramebuffers(1, *this))
-)
+    ~Framebuffer() {
+        if (*this) {
+            OW_GL_CALL(glDeleteFramebuffers(1, get_descriptor_ptr()));
+        }
+    }
 
-#endif // OPENWAY_FRAMEBUFFER_HPP
+    DEFAULT_MOVABLE(Framebuffer)
+};
+
+#endif // OPENWAY_INCLUDE_OPENWAY_GL_FRAMEBUFFER_HPP

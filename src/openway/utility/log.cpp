@@ -1,4 +1,4 @@
-#include "openway/log.hpp"
+#include "openway/utility/log.hpp"
 
 #include <algorithm>
 #include <iostream>

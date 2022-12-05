@@ -2,7 +2,7 @@
 
 #include "openway/io/input_state.hpp"
 #include "openway/io/window.hpp"
-#include "openway/log.hpp"
+#include "openway/utility/log.hpp"
 
 namespace {
 

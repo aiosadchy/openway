@@ -6,8 +6,8 @@
 
 #include <glad/glad.h>
 
-#include "openway/debug.hpp"
-#include "openway/log.hpp"
+#include "openway/utility/debug.hpp"
+#include "openway/utility/log.hpp"
 
 
 namespace gl {
