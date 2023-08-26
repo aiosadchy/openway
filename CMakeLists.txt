@@ -33,12 +33,14 @@ add_executable(openway
 
     src/openway/graphics/camera.cpp
     src/openway/graphics/fullscreen_triangle.cpp
+    src/openway/graphics/mesh.cpp
     src/openway/graphics/orthographic_camera.cpp
     src/openway/graphics/perspective_camera.cpp
     src/openway/graphics/render_pass.cpp
 
     src/openway/io/keyboard.cpp
     src/openway/io/mouse.cpp
+    src/openway/io/tinyobjloader.cpp
     src/openway/io/window.cpp
 
     src/openway/utility/debug.cpp

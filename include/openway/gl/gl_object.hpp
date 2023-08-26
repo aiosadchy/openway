@@ -16,25 +16,6 @@ public:
     static constexpr Descriptor NULL_VALUE = V_NULL_VALUE;
 
 public:
-    class Reference {
-    public:
-        Reference(const GLObject &object)
-        : m_handle{object} {
-        }
-
-        operator Descriptor() const {
-            return m_handle;
-        }
-
-        operator bool() const {
-            return m_handle != NULL_VALUE;
-        }
-
-    private:
-        Descriptor m_handle;
-    };
-
-public:
     NON_COPYABLE(GLObject)
 
     GLObject(GLObject &&another) noexcept

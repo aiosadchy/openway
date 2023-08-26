@@ -8,8 +8,8 @@
 RenderPass::RenderPass(
     std::size_t output_width,
     std::size_t output_height,
-    std::vector<Texture::Reference> color_outputs,
-    std::optional<Texture::Reference> depth_output,
+    std::vector<Texture::Descriptor> color_outputs,
+    std::optional<Texture::Descriptor> depth_output,
     bool use_stencil
 )
 : m_output_width{output_width}
@@ -20,7 +20,7 @@ RenderPass::RenderPass(
     OW_GL_CALL(glBindRenderbuffer(GL_RENDERBUFFER, m_renderbuffer));
 
     std::vector<GLenum> draw_buffers = {};
-    for (Texture::Reference texture : m_color_outputs) {
+    for (Texture::Descriptor texture : m_color_outputs) {
         draw_buffers.emplace_back(GL_COLOR_ATTACHMENT0 + draw_buffers.size());
         attach_color_output(texture, draw_buffers.back());
     }
@@ -42,15 +42,15 @@ void RenderPass::bind() {
     OW_GL_CALL(glViewport(0, 0, m_output_width, m_output_height));
 }
 
-const std::vector<Texture::Reference> &RenderPass::get_color_outputs() const {
+const std::vector<Texture::Descriptor> &RenderPass::get_color_outputs() const {
     return m_color_outputs;
 }
 
-const std::optional<Texture::Reference> &RenderPass::get_depth_output() const {
+const std::optional<Texture::Descriptor> &RenderPass::get_depth_output() const {
     return m_depth_output;
 }
 
-void RenderPass::attach_color_output(Texture::Reference texture, GLenum index) {
+void RenderPass::attach_color_output(Texture::Descriptor texture, GLenum index) {
     OW_GL_CALL(glFramebufferTexture(
         GL_FRAMEBUFFER,
         index,
@@ -60,7 +60,7 @@ void RenderPass::attach_color_output(Texture::Reference texture, GLenum index) {
 }
 
 void RenderPass::attach_depth_output(
-    Texture::Reference texture,
+    Texture::Descriptor texture,
     bool use_stencil
 ) {
     GLenum attachment_type = GL_DEPTH_ATTACHMENT;
@@ -75,7 +75,7 @@ void RenderPass::attach_depth_output(
     ));
 }
 
-void RenderPass::prepare_texture(Texture::Reference texture) const {
+void RenderPass::prepare_texture(Texture::Descriptor texture) const {
     // TODO: add support for internal texture formats
     OW_GL_CALL(glBindTexture(GL_TEXTURE_2D, texture));
     OW_GL_CALL(glTexImage2D(
