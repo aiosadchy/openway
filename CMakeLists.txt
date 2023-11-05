@@ -14,7 +14,7 @@ function(msg level)
     message(${level} "openway: " ${ARGN})
 endfunction()
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(external EXCLUDE_FROM_ALL)
 
@@ -63,7 +63,7 @@ target_compile_definitions(openway
 
     PUBLIC $<$<CONFIG:Debug>:OW_DEBUG>
     PUBLIC $<$<CONFIG:Release>:OW_MINIMUM_LOG_LEVEL=INFO>
-    PUBLIC OW_SOURCE_ROOT="${CMAKE_SOURCE_DIR}"
+    PRIVATE OW_SOURCE_ROOT="${CMAKE_SOURCE_DIR}"
 )
 
 if(MSVC)

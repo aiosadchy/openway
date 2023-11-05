@@ -55,9 +55,9 @@ IncludeCategories:
     Priority: 4
 IndentAccessModifiers: false
 IndentCaseBlocks: false
-IndentCaseLabels: false
+IndentCaseLabels: true
 IndentExternBlock: Indent
-IndentPPDirectives: None
+IndentPPDirectives: BeforeHash
 IndentRequiresClause: false
 IndentWidth: 4
 IndentWrappedFunctionNames: false

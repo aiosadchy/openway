@@ -28,6 +28,7 @@ add_dependency(glm
     https://github.com/g-truc/glm.git
     0.9.9.8
 )
+target_compile_options(glm INTERFACE -Wno-volatile)
 
 add_dependency(tinyobjloader
     https://github.com/tinyobjloader/tinyobjloader.git
