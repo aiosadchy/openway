@@ -59,7 +59,7 @@ private:
         }
 
         template <typename E>
-        [[noreturn]] inline void operator<<(E &&exception) const {
+        [[noreturn]] inline void operator<<=(E &&exception) const {
             error(::to_string("[exception] ", exception.what()), m_file, m_line);
             std::exception_ptr current_exception = std::current_exception();
             if (current_exception) {
@@ -88,6 +88,6 @@ constexpr bool operator<(Log::Level a, Log::Level b) noexcept {
 #define OW_LOG_WARNING(...)  Log::warning  (to_string(__VA_ARGS__), __FILE__, __LINE__)
 #define OW_LOG_ERROR(...)    Log::error    (to_string(__VA_ARGS__), __FILE__, __LINE__)
 #define OW_LOG_CRITICAL(...) Log::critical (to_string(__VA_ARGS__), __FILE__, __LINE__)
-#define OW_LOG_THROW Log::exception_logger(__FILE__, __LINE__) <<
+#define OW_LOG_THROW Log::exception_logger(__FILE__, __LINE__) <<=
 
 #endif // OPENWAY_LOG_HPP

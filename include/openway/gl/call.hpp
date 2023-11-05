@@ -51,7 +51,7 @@ inline TResult wrap_call(TResult call_result, const char *file, int line, bool t
         );
     }
     if (error && throw_on_error) {
-        Log::exception_logger(file, line) << std::runtime_error{"OpenGL error"};
+        Log::exception_logger(file, line) <<= std::runtime_error{"OpenGL error"};
     }
     return call_result;
 }
